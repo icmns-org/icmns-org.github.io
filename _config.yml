@@ -7,11 +7,25 @@ url: "https://icmns.org"
 baseurl: ""
 lang: en
 
+# Link-preview card (Open Graph / social media), used by jekyll-seo-tag
+logo: /assets/logo/icmns_mark_512.png
+twitter:
+  card: summary_large_image
+
 # Contact address shown in the footer (TODO: replace)
 email: info@icmns.org
 
+# Announcements mailing list (home page button)
+mailing_list: https://listserver.vu.nl/mailman/listinfo/icmns-beta
+
 # Current edition, used on the home page
 current_edition: 2027
+
+# News posts live in _posts/ as YYYY-MM-DD-title.md
+permalink: /news/:year/:month/:day/:title/
+
+feed:
+  path: feed.xml
 
 collections:
   editions:
@@ -20,12 +34,17 @@ collections:
 
 defaults:
   - scope: { path: "" }
-    values: { layout: default }
+    values:
+      layout: default
+      image: /assets/logo/og-image.png
   - scope: { path: "", type: editions }
     values: { layout: edition }
+  - scope: { path: "", type: posts }
+    values: { layout: post }
 
 plugins:
   - jekyll-seo-tag
   - jekyll-sitemap
+  - jekyll-feed
 
-exclude: [README.md, Gemfile, Gemfile.lock, vendor]
+exclude: [README.md, CONTRIBUTING.md, Gemfile, Gemfile.lock, vendor]

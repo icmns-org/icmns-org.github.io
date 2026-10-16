@@ -3,8 +3,15 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="preload" href="{{ '/assets/fonts/instrument-sans-normal-400-700-latin.woff2' | relative_url }}" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="{{ '/assets/css/fonts.css' | relative_url }}">
   <link rel="stylesheet" href="{{ '/assets/css/style.css' | relative_url }}">
   {% seo %}
+  <link rel="icon" href="{{ '/favicon.ico' | relative_url }}" sizes="any">
+  <link rel="icon" href="{{ '/favicon.svg' | relative_url }}" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="{{ '/apple-touch-icon.png' | relative_url }}">
+  <meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#12161d" media="(prefers-color-scheme: dark)">
   {% if page.math %}
   <script>window.MathJax = { tex: { inlineMath: [['$', '$'], ['\\(', '\\)']] } };</script>
   <script defer src="https://cdn.jsdelivr.net/npm/mathjax@3.2.2/es5/tex-chtml.js"></script>
@@ -14,8 +21,14 @@
   <header class="site-header">
     <div class="wrap">
       <a class="brand" href="{{ '/' | relative_url }}">
-        <span class="brand-short">{{ site.title }}</span>
-        <span class="brand-long">{{ site.long_title }}</span>
+        <picture>
+          <source srcset="{{ '/assets/logo/icmns_mark_small-dark.svg' | relative_url }}" media="(prefers-color-scheme: dark)">
+          <img class="brand-mark" src="{{ '/assets/logo/icmns_mark_small-light.svg' | relative_url }}" alt="" width="56" height="56">
+        </picture>
+        <span class="brand-text">
+          <span class="brand-short">{{ site.title }}</span>
+          <span class="brand-long">{{ site.long_title }}</span>
+        </span>
       </a>
       <nav>
         {% for item in site.data.navigation %}
