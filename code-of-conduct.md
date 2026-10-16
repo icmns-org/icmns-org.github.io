@@ -1,6 +1,7 @@
 ---
 title: Code of conduct
 permalink: /code-of-conduct/
+published: false
 ---
 # Code of conduct
 

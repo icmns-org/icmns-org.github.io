@@ -1,0 +1,7 @@
+<svg viewBox="0 0 64 64" width="{{ include.size }}" height="{{ include.size }}" aria-hidden="true">
+  <path d="M17 35 C11 35 7 30 8 24 C9 15 18 7 30 7 C42 6 54 12 57 22 C59 30 56 37 50 39 C51 44 47 48 42 48 C40 48 38 47 37 46 L37 55 L32 55 L32 46 C27 47 21 46 17 43 C13 41 13 37 17 35 Z" fill="none" stroke="currentColor" stroke-width="3" stroke-linejoin="round"/>
+  <path d="M17 36 C24 35 30 32 36 28" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-opacity="0.75"/>
+  <path d="M35 7.5 C33.5 13 37 18 33.5 23 C32 25.5 33 28 31.5 30.5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-opacity="0.75"/>
+  <path d="M50 39 C46 40.5 41 41.5 37 43.5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-opacity="0.75"/>
+  <path d="M12 27 H23 L27 15 L32 37 L35 27 H52" fill="none" style="stroke:var(--logo-accent)" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>

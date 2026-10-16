@@ -1,0 +1,18 @@
+<svg viewBox="0 0 64 64" width="{{ include.size }}" height="{{ include.size }}" aria-hidden="true">
+  <path d="M6 58 H58" stroke="currentColor" stroke-width="1.8" stroke-opacity="0.55"/>
+  <path d="M8 58 L8 50 L16 58" fill="none" stroke="currentColor" stroke-width="1.8" stroke-opacity="0.55" stroke-linejoin="round"/>
+  <path d="M8 58 L16 50 L24 58" fill="none" stroke="currentColor" stroke-width="1.8" stroke-opacity="0.55" stroke-linejoin="round"/>
+  <path d="M16 58 L24 50 L32 58" fill="none" style="stroke:var(--logo-accent)" stroke-width="2.6" stroke-linejoin="round"/>
+  <path d="M24 58 L32 50 L40 58" fill="none" stroke="currentColor" stroke-width="1.8" stroke-opacity="0.55" stroke-linejoin="round"/>
+  <path d="M32 58 L40 50 L48 58" fill="none" stroke="currentColor" stroke-width="1.8" stroke-opacity="0.55" stroke-linejoin="round"/>
+  <path d="M40 58 L48 50 L56 58" fill="none" stroke="currentColor" stroke-width="1.8" stroke-opacity="0.55" stroke-linejoin="round"/>
+  <path d="M48 58 L56 50 L56 58" fill="none" stroke="currentColor" stroke-width="1.8" stroke-opacity="0.55" stroke-linejoin="round"/>
+  <path d="M8 40 L16 39 L24 9 L32 47 L40 42 L48 40 L56 40" fill="none" style="stroke:var(--logo-accent)" stroke-width="4.2" stroke-linejoin="round" stroke-linecap="round"/>
+  <circle cx="8" cy="40" r="3" fill="currentColor"/>
+  <circle cx="16" cy="39" r="3" fill="currentColor"/>
+  <circle cx="24" cy="9" r="3" fill="currentColor"/>
+  <circle cx="32" cy="47" r="3" fill="currentColor"/>
+  <circle cx="40" cy="42" r="3" fill="currentColor"/>
+  <circle cx="48" cy="40" r="3" fill="currentColor"/>
+  <circle cx="56" cy="40" r="3" fill="currentColor"/>
+</svg>
