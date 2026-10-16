@@ -1,0 +1,31 @@
+title: ICMNS
+long_title: International Conference on Mathematical Neuroscience
+description: >-
+  The International Conference on Mathematical Neuroscience (ICMNS) brings together
+  mathematicians, physicists, computational and experimental neuroscientists.
+url: "https://icmns.org"
+baseurl: ""
+lang: en
+
+# Contact address shown in the footer (TODO: replace)
+email: info@icmns.org
+
+# Current edition, used on the home page
+current_edition: 2027
+
+collections:
+  editions:
+    output: true
+    permalink: /:name/
+
+defaults:
+  - scope: { path: "" }
+    values: { layout: default }
+  - scope: { path: "", type: editions }
+    values: { layout: edition }
+
+plugins:
+  - jekyll-seo-tag
+  - jekyll-sitemap
+
+exclude: [README.md, Gemfile, Gemfile.lock, vendor]
