@@ -117,6 +117,7 @@ main { counter-reset: section; }
 .block .prose { max-width: none; }
 .block .prose > p, .block .prose > ul, .block .prose > ol { max-width: 66ch; }
 @media (min-width: 52rem) { .block { grid-template-columns: 15rem 1fr; } }
+.unnumbered .block h2::before { content: none; }   /* pages with numbered: false */
 
 /* lists of people (e.g. plenary speakers): name in Plex Sans */
 .block .prose > ul:only-child { list-style: none; padding: 0; }
