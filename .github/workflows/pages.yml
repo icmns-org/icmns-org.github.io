@@ -1,8 +1,10 @@
-name: Deploy site to GitHub Pages
+name: Build and deploy the site
 
+# Every branch and pull request is built (so mistakes show up before they go live);
+# only the main branch is published to icmns.org.
 on:
   push:
-    branches: [main]
+  pull_request:
   schedule:
     - cron: "17 3 * * *"   # nightly rebuild, so date-based statuses stay current
   workflow_dispatch:
@@ -13,7 +15,7 @@ permissions:
   id-token: write
 
 concurrency:
-  group: pages
+  group: pages-${{ github.ref }}
   cancel-in-progress: false
 
 jobs:
@@ -21,6 +23,29 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+
+      # Maths: typeset any $$...$$ formula that has no SVG in _maths/ yet, so editors
+      # can write equations on github.com without installing LaTeX themselves.
+      - uses: teatimeguest/setup-texlive-action@v3
+        with:
+          packages: |
+            scheme-infraonly
+            latex-bin
+            xetex
+            amsmath
+            unicode-math
+            lualatex-math
+            fontspec
+            l3packages
+            iftex
+            lm
+            plex
+            firamath
+            dvisvgm
+      - name: Typeset maths
+        run: python3 tools/render_maths.py
+        continue-on-error: true    # if LaTeX fails, still build: missing formulas show in red
+
       - uses: ruby/setup-ruby@v1
         with:
           ruby-version: "3.3"
@@ -30,9 +55,11 @@ jobs:
         env:
           JEKYLL_ENV: production
       - uses: actions/upload-pages-artifact@v3
+        if: github.ref == 'refs/heads/main' && github.event_name != 'pull_request'
 
   deploy:
     needs: build
+    if: github.ref == 'refs/heads/main' && github.event_name != 'pull_request'
     runs-on: ubuntu-latest
     environment:
       name: github-pages

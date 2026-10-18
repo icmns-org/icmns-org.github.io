@@ -10,7 +10,8 @@ This script finds every formula, typesets it with LaTeX and saves it as
 _maths/<hash>.svg. When the site is built, _plugins/maths.rb puts each SVG in
 place of its formula, drawn in the text colour (so it follows light/dark mode).
 
-Run it after adding or changing a formula, then commit the new files in _maths/:
+The site's GitHub build runs it automatically. To preview maths locally, run it
+after adding or changing a formula (committing the new files in _maths/ is optional):
 
     python3 tools/render_maths.py
 

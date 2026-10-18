@@ -154,7 +154,7 @@ Keep images under about 1 MB (resize photos to about 1600 px wide). Make sure yo
 
 ### Write mathematics
 
-Equations are typeset by LaTeX in IBM Plex Mono Italic and shown as images in the text colour. Add `math: true` to the page's header and write each formula between **double** dollar signs; a formula on a line of its own is centred:
+Equations are typeset by LaTeX in IBM Plex Mono Italic and shown as images in the text colour. Add `math: true` to the page's header and write each formula between **double** dollar signs; a formula on a line of its own is set on its own line, aligned to the right:
 
 ```markdown
 ---
@@ -166,13 +166,9 @@ The membrane potential obeys $$\tau \dot V = -V + I(t)$$, and
 $$ \frac{\partial u}{\partial t} = -u + \int w(x-y)\, f(u(y,t))\, dy. $$
 ```
 
-Then, on a computer with LaTeX installed (MacTeX or TeX Live), run
+That's all: when the site is rebuilt, GitHub typesets each new formula with LaTeX. If a formula has a LaTeX error, it appears on the site as red code and the build log (see [section 6](#6-checking-your-change-went-live)) says which one.
 
-```sh
-python3 tools/render_maths.py
-```
-
-and commit the new files it creates in `_maths/`. Until you do, the formula appears on the site as red LaTeX code, and the build log says which formula is missing. Editing on github.com alone is therefore not enough for maths: ask a maintainer to run the script if you can't.
+If you preview the site on your own computer (section 8), run `python3 tools/render_maths.py` to typeset new formulas there too; this needs LaTeX (MacTeX or TeX Live). Committing the files it creates in `_maths/` makes the next build slightly faster, but is optional.
 
 ---
 title: ...
