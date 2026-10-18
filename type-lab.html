@@ -8,7 +8,7 @@ sitemap: false
 {%- assign dparts = current.dates | split: " " -%}
 {%- assign editions = site.editions | sort: "year" | reverse -%}
 <!doctype html>
-<html lang="en" data-dir="A">
+<html lang="en" data-dir="P">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -93,6 +93,66 @@ section.block { display: grid; gap: 1rem 3rem; }
 [data-dir="A"] .news a { display: block; font-family: var(--display); font-size: 1.3rem; line-height: 1.25; }
 [data-dir="A"] .news a:hover { color: var(--accent); }
 [data-dir="A"] .footer { border-top: 1px solid var(--rule); padding: 1.5rem 0 3rem; color: var(--muted); font-size: .9rem; }
+
+/* ------------------------------------------------------------------
+   P. PLEX: the Journal layout set entirely in the IBM Plex family,
+   Plex Sans for display, Plex Mono for reading text.
+   ------------------------------------------------------------------ */
+[data-dir="P"] {
+  --paper: #faf8f3; --ink: #1c1e24; --muted: #6b6f78; --rule: #dcd6c8; --accent: #1f5f8b;
+  --display: "IBM Plex Sans", Arial, sans-serif; --text: "IBM Plex Mono", ui-monospace, monospace;
+}
+[data-dir="P"][data-theme="dark"] { --paper: #14161b; --ink: #ebe6db; --muted: #9a9890; --rule: #2e3038; --accent: #8cc0e3; }
+[data-dir="P"] body { font-size: 17px; line-height: 1.6; }
+[data-dir="P"] .masthead { border-bottom: 1px solid var(--rule); padding: .9rem 0; }
+[data-dir="P"] .brand span { font-family: var(--display); font-size: 1.6rem; letter-spacing: .04em; font-variant-caps: all-small-caps; font-feature-settings: "c2sc", "smcp"; }
+[data-dir="P"] .nav a { font-size: .95rem; color: var(--muted); }
+[data-dir="P"] .nav a:hover { color: var(--ink); }
+[data-dir="P"] .hero { padding: clamp(2rem, 6vw, 5rem) 0 clamp(2rem, 5vw, 4rem); }
+[data-dir="P"] .eyebrow { font-family: var(--display); font-variant-caps: all-small-caps; letter-spacing: .12em; font-size: 1.1rem; color: var(--muted); margin: 0 0 1rem; }
+[data-dir="P"] h1 { font-family: var(--display); font-weight: 350; font-optical-sizing: auto; font-size: clamp(2.6rem, 5.6vw, 4.6rem); line-height: 1.02; letter-spacing: -.015em; margin: 0; }
+[data-dir="P"] h1 em { font-weight: 300; }
+[data-dir="P"] .next { margin: 1.75rem 0 0; padding-top: 1.25rem; border-top: 1px solid var(--rule); font-family: var(--display); font-size: 1.45rem; line-height: 1.35; font-feature-settings: "lnum"; }
+[data-dir="P"] .next .k { font-variant-caps: all-small-caps; letter-spacing: .1em; color: var(--muted); margin-right: .4em; }
+[data-dir="P"] .next em { color: var(--muted); }
+[data-dir="P"] .cta a { font-size: .95rem; font-weight: 500; padding: .55rem 1.1rem; border: 1px solid var(--ink); border-radius: 999px; }
+[data-dir="P"] .cta a.primary { background: var(--ink); color: var(--paper); }
+[data-dir="P"] section.block { border-top: 1px solid var(--rule); padding: 2.5rem 0; }
+[data-dir="P"] h2 { font-family: var(--display); font-weight: 400; font-size: 1.6rem; line-height: 1.15; margin: 0; }
+[data-dir="P"] h2 .n { font-style: italic; color: var(--muted); margin-right: .35em; font-feature-settings: "onum"; }
+[data-dir="P"] .speakers li { grid-template-columns: 1fr; padding: .7rem 0; border-bottom: 1px solid var(--rule); }
+[data-dir="P"] .speakers .name { font-family: var(--display); font-size: 1.35rem; line-height: 1.25; }
+[data-dir="P"] .speakers .aff { font-size: .92rem; color: var(--muted); font-style: normal; }
+[data-dir="P"] .data th { font-family: var(--display); font-weight: 400; font-variant-caps: all-small-caps; letter-spacing: .08em; color: var(--muted); padding: 0 .75rem .4rem 0; border-bottom: 1px solid var(--ink); }
+[data-dir="P"] .data td { padding: .5rem .75rem .5rem 0; border-bottom: 1px solid var(--rule); font-variant-numeric: lining-nums tabular-nums; }
+[data-dir="P"] .data td.year { font-family: var(--display); font-size: 1.15rem; font-feature-settings: "onum"; }
+[data-dir="P"] .news li { padding: .8rem 0; border-bottom: 1px solid var(--rule); }
+[data-dir="P"] .news time { font-family: var(--display); font-style: italic; color: var(--muted); font-feature-settings: "onum"; }
+[data-dir="P"] .news a { display: block; font-family: var(--display); font-size: 1.3rem; line-height: 1.25; }
+[data-dir="P"] .news a:hover { color: var(--accent); }
+[data-dir="P"] .footer { border-top: 1px solid var(--rule); padding: 1.5rem 0 3rem; color: var(--muted); font-size: .9rem; }
+
+/* Retuned for Plex: a sans has no small capitals or old-style figures, and
+   Plex Mono runs wide, so labels become spaced capitals and text steps down a size */
+[data-dir="P"] body { font-size: 15px; line-height: 1.7; }
+[data-dir="P"] .brand span { font-variant-caps: normal; font-weight: 600; font-size: 1.3rem; letter-spacing: .05em; }
+[data-dir="P"] .nav a { font-size: .85rem; }
+[data-dir="P"] .eyebrow { font-family: var(--text); font-variant-caps: normal; text-transform: uppercase; font-size: .75rem; letter-spacing: .1em; }
+[data-dir="P"] h1 { font-weight: 300; font-size: clamp(2.5rem, 5.2vw, 4.4rem); line-height: 1.04; letter-spacing: -.025em; }
+[data-dir="P"] h1 em { font-weight: 300; }
+[data-dir="P"] .next { font-size: 1.3rem; font-weight: 400; letter-spacing: -.01em; }
+[data-dir="P"] .next .k { font-family: var(--text); font-variant-caps: normal; text-transform: uppercase; font-size: .72rem; letter-spacing: .1em; vertical-align: .2em; }
+[data-dir="P"] .cta a { font-family: var(--display); }
+[data-dir="P"] h2 { font-weight: 400; font-size: 1.5rem; letter-spacing: -.01em; }
+[data-dir="P"] h2 .n { font-style: normal; font-family: var(--text); font-size: .85rem; vertical-align: .3em; font-feature-settings: normal; }
+[data-dir="P"] .speakers .name { font-size: 1.25rem; letter-spacing: -.01em; }
+[data-dir="P"] .speakers .aff { font-size: .85rem; }
+[data-dir="P"] .data th { font-family: var(--text); font-variant-caps: normal; text-transform: uppercase; font-size: .7rem; letter-spacing: .1em; }
+[data-dir="P"] .data td { font-size: .9rem; }
+[data-dir="P"] .data td.year { font-size: 1.1rem; font-weight: 500; font-feature-settings: normal; font-variant-numeric: tabular-nums; }
+[data-dir="P"] .news time { font-style: normal; font-family: var(--text); font-size: .8rem; font-feature-settings: normal; }
+[data-dir="P"] .news a { font-size: 1.25rem; letter-spacing: -.01em; }
+[data-dir="P"] .footer { font-size: .8rem; }
 
 /* ------------------------------------------------------------------
    C. NOTEBOOK: a mono for reading, a fine serif italic for display,
@@ -274,6 +334,7 @@ body { padding-bottom: 80px; }
 </footer>
 
 <div class="lab" role="toolbar" aria-label="Type lab">
+  <button data-set-dir="P">P · Plex</button>
   <button data-set-dir="A">A · Journal</button>
   <button data-set-dir="C">C · Notebook</button>
   <span class="sep"></span>
@@ -326,13 +387,13 @@ body { padding-bottom: 80px; }
     ['Mono', 'Martian Mono', 'Martian+Mono:wght@300..700', 'Wide, technical mono.'],
     ['Mono', 'Space Mono', 'Space+Mono:ital,wght@0,400;0,700;1,400', 'Retro-futurist mono.']
   ];
-  var DEFAULTS = { A: { display: 'Newsreader', text: 'Instrument Sans' }, C: { display: 'Instrument Serif', text: 'IBM Plex Mono' } };
+  var DEFAULTS = { P: { display: 'IBM Plex Sans', text: 'IBM Plex Mono' }, A: { display: 'Newsreader', text: 'Instrument Sans' }, C: { display: 'Instrument Serif', text: 'IBM Plex Mono' } };
   var FALLBACK = { Serif: 'Georgia, serif', Sans: 'Arial, sans-serif', Mono: 'ui-monospace, monospace' };
 
   var root = document.documentElement, loaded = {}, tab = 'display';
   var q = new URLSearchParams(location.hash.slice(1));
   var state = {
-    dir: q.get('dir') === 'C' ? 'C' : 'A',
+    dir: ['A', 'C', 'P'].indexOf(q.get('dir')) >= 0 ? q.get('dir') : 'P',
     theme: q.get('theme') || (matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light'),
     display: q.get('display'), text: q.get('text')
   };
@@ -398,7 +459,7 @@ body { padding-bottom: 80px; }
   document.addEventListener('keydown', function (e) {
     if (e.key === 'Escape') picker.classList.remove('open');
     if (e.target.closest && e.target.closest('input, select, textarea')) return;
-    if (e.key === 'a' || e.key === 'c') { state.dir = e.key.toUpperCase(); state.display = null; state.text = null; apply(); }
+    if (e.key === 'a' || e.key === 'c' || e.key === 'p') { state.dir = e.key.toUpperCase(); state.display = null; state.text = null; apply(); }
     if (e.key === 'd') { state.theme = state.theme === 'dark' ? 'light' : 'dark'; apply(); }
   });
   apply();
