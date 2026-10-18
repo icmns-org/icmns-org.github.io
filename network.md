@@ -16,14 +16,18 @@ sitemap: false
   {%- assign people = site.data.people | default: empty | sort: "surname" %}
   <div class="network-list">
     {%- for r in regions %}
-    <section>
+    <section class="network-region">
       <h2>{{ r.name }}</h2>
-      {%- assign countries_here = r.items | sort: "country" %}
-      {%- for n in countries_here %}
-      <h3>{{ n.country }}</h3>
-      {%- assign here = people | where: "country", n.country %}
-      <ul class="people">{% for p in here %}<li>{{ p.name }} <span>{{ p.institution }}</span></li>{% endfor %}</ul>
-      {%- endfor %}
+      <div class="network-countries">
+        {%- assign countries_here = r.items | sort: "country" %}
+        {%- for n in countries_here %}
+        {%- assign here = people | where: "country", n.country %}
+        <div class="network-country">
+          <h3>{{ n.country }} <span>{{ here.size }}</span></h3>
+          <ul>{% for p in here %}<li><span class="who">{{ p.name }}</span><span class="where">{{ p.institution }}</span></li>{% endfor %}</ul>
+        </div>
+        {%- endfor %}
+      </div>
     </section>
     {%- endfor %}
   </div>

@@ -216,17 +216,18 @@ figcaption { margin-top: .5rem; font-size: .75rem; color: var(--muted); }
 .network-tip { position: absolute; transform: translate(-50%, calc(-100% - 14px)); padding: .25rem .55rem; border-radius: 4px;
   background: var(--band); color: var(--band-ink); font-size: .78rem; white-space: nowrap; pointer-events: none; opacity: 0; transition: opacity .15s; }
 .network-tip.on { opacity: 1; }
-.network-list { display: grid; gap: 1.5rem 3rem; grid-template-columns: repeat(auto-fit, minmax(12rem, 1fr)); border-top: 1px solid var(--rule); padding: 2rem 0 4rem; }
-.network-list h2 { font-size: 1.3rem; margin: 0 0 .75rem; }
-.network-list h3 { font-family: var(--text); font-weight: 400; font-size: .72rem; text-transform: uppercase; letter-spacing: .1em; color: var(--muted); margin: 1.2rem 0 .3rem; }
-.network-list h3:first-of-type { margin-top: 0; }
-.network-list > section > .people { border-left: 0; padding-left: 0; font-size: .9rem; }
-.network-list > section > .people li { padding: .15rem 0; }
-.network-list ul { list-style: none; margin: 0; padding: 0; }
-.network-list li { padding: .2rem 0; }
-.network-list li span { color: var(--muted); font-size: .85em; margin-left: .4em; }
-.network-list .people { list-style: none; margin: .2rem 0 .6rem; padding: 0 0 0 1rem; border-left: 1px solid var(--rule); font-size: .85rem; }
-
+/* the people, by region and country: three clearly different levels */
+.network-list { padding: 0 0 4rem; }
+.network-region { border-top: 1px solid var(--rule); padding: 1.75rem 0 2.25rem; display: grid; gap: 1rem 3rem; }
+@media (min-width: 52rem) { .network-region { grid-template-columns: 15rem 1fr; } }
+.network-region h2 { font-weight: 300; font-size: 1.7rem; line-height: 1.1; margin: 0; letter-spacing: -.015em; }
+.network-countries { display: grid; gap: 1.75rem 2.5rem; grid-template-columns: repeat(auto-fill, minmax(15rem, 1fr)); }
+.network-country h3 { font-family: var(--display); font-weight: 500; font-size: 1.05rem; margin: 0 0 .6rem; padding-bottom: .35rem; border-bottom: 1px solid var(--rule); }
+.network-country h3 span { font-family: var(--text); font-weight: 400; font-size: .75rem; color: var(--muted); margin-left: .4em; }
+.network-country ul { list-style: none; margin: 0; padding: 0; }
+.network-country li { margin: 0 0 .7rem; line-height: 1.3; }
+.network-country .who { display: block; font-family: var(--display); font-size: 1rem; }
+.network-country .where { display: block; font-size: .75rem; color: var(--muted); margin-top: .1rem; }
 
 /* ---------------------------------------------------------------- footer */
 .footer { background: var(--band); color: var(--band-muted); font-size: .8rem; padding: 1.5rem 0 2rem; }
