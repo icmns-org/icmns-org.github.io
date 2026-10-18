@@ -1,7 +1,7 @@
 ---
 title: Colophon
 heading: Colophon
-subtitle: How this website and its logo were made.
+# subtitle: How this website and its logo were made.
 layout: page
 permalink: /colophon/
 math: true
