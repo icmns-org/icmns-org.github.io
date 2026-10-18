@@ -8,7 +8,7 @@ sitemap: false
 {%- assign dparts = current.dates | split: " " -%}
 {%- assign editions = site.editions | sort: "year" | reverse -%}
 <!doctype html>
-<html lang="en" data-dir="P">
+<html lang="en" data-dir="P" data-view="home">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -208,6 +208,23 @@ section.block { display: grid; gap: 1rem 3rem; }
 [data-dir="C"] .footer { border-top: 1px solid var(--ink); padding: 1.25rem 0 3rem; font-size: .8rem; color: var(--muted); }
 
 /* ------------------------------------------------------------------
+   Home view: the front page stops at the buttons
+   ------------------------------------------------------------------ */
+[data-view="home"] section.block, [data-view="home"] .equation { display: none !important; }
+[data-view="home"] .hero { min-height: calc(100vh - 160px); padding-top: 2rem; padding-bottom: 2rem; }
+
+/* Plex front page: two voices only. Plex Sans Light for the name,
+   Plex Mono at one size for everything else; no italics, no small labels. */
+[data-dir="P"][data-view="home"] .eyebrow { display: none; }
+[data-dir="P"][data-view="home"] h1 em { font-style: normal; }
+[data-dir="P"][data-view="home"] .next { font-family: var(--text); font-size: .95rem; letter-spacing: 0; border-top: 0; padding-top: 0; margin-top: 2rem; }
+[data-dir="P"][data-view="home"] .next .k, [data-dir="P"][data-view="home"] .next em { font: inherit; color: inherit; font-style: normal; letter-spacing: 0; text-transform: none; vertical-align: baseline; margin: 0; }
+[data-dir="P"][data-view="home"] .next .k::after { content: ":"; }
+[data-dir="P"][data-view="home"] .cta { margin-top: 1.5rem; }
+[data-dir="P"][data-view="home"] .cta a { font-family: var(--text); font-size: .9rem; font-weight: 400; }
+[data-dir="P"][data-view="home"] .brand span { font-weight: 500; letter-spacing: .04em; }
+
+/* ------------------------------------------------------------------
    The switcher (deliberately neutral, not part of any design)
    ------------------------------------------------------------------ */
 .lab { position: fixed; z-index: 10; left: 50%; bottom: 16px; transform: translateX(-50%); display: flex; gap: 4px; padding: 4px; border-radius: 999px;
@@ -338,6 +355,9 @@ body { padding-bottom: 80px; }
   <button data-set-dir="A">A · Journal</button>
   <button data-set-dir="C">C · Notebook</button>
   <span class="sep"></span>
+  <button data-set-view="home">Home</button>
+  <button data-set-view="page">Inner page</button>
+  <span class="sep"></span>
   <button data-open="display">Display font</button>
   <button data-open="text">Text font</button>
   <button data-reset>Reset</button>
@@ -395,6 +415,7 @@ body { padding-bottom: 80px; }
   var state = {
     dir: ['A', 'C', 'P'].indexOf(q.get('dir')) >= 0 ? q.get('dir') : 'P',
     theme: q.get('theme') || (matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light'),
+    view: q.get('view') === 'page' ? 'page' : 'home',
     display: q.get('display'), text: q.get('text')
   };
 
@@ -413,6 +434,7 @@ body { padding-bottom: 80px; }
   function apply() {
     root.dataset.dir = state.dir;
     root.dataset.theme = state.theme;
+    root.dataset.view = state.view;
     var d = current('display'), t = current('text');
     load([d, t]);
     // --mono is used by labels in some directions: follow the text font when it is a mono
@@ -420,7 +442,8 @@ body { padding-bottom: 80px; }
     root.style.setProperty('--text', stack(t));
     document.querySelectorAll('[data-set-dir]').forEach(function (b) { b.setAttribute('aria-pressed', b.dataset.setDir === state.dir); });
     document.querySelectorAll('[data-set-theme]').forEach(function (b) { b.setAttribute('aria-pressed', b.dataset.setTheme === state.theme); });
-    var h = 'dir=' + state.dir + '&theme=' + state.theme;
+    document.querySelectorAll('[data-set-view]').forEach(function (b) { b.setAttribute('aria-pressed', b.dataset.setView === state.view); });
+    var h = 'dir=' + state.dir + '&theme=' + state.theme + '&view=' + state.view;
     if (state.display) h += '&display=' + encodeURIComponent(state.display);
     if (state.text) h += '&text=' + encodeURIComponent(state.text);
     history.replaceState(null, '', '#' + h);
@@ -456,6 +479,7 @@ body { padding-bottom: 80px; }
   document.querySelector('[data-reset]').onclick = function () { state.display = null; state.text = null; apply(); };
   document.querySelectorAll('[data-set-dir]').forEach(function (b) { b.onclick = function () { state.dir = b.dataset.setDir; state.display = null; state.text = null; apply(); }; });
   document.querySelectorAll('[data-set-theme]').forEach(function (b) { b.onclick = function () { state.theme = b.dataset.setTheme; apply(); }; });
+  document.querySelectorAll('[data-set-view]').forEach(function (b) { b.onclick = function () { state.view = b.dataset.setView; apply(); }; });
   document.addEventListener('keydown', function (e) {
     if (e.key === 'Escape') picker.classList.remove('open');
     if (e.target.closest && e.target.closest('input, select, textarea')) return;
