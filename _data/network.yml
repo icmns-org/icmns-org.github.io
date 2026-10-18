@@ -1,11 +1,16 @@
-# ICMNS nodes, shown on /network/ (an internal experiment for now).
-# PLACEHOLDERS: these are the cities of past and coming editions, not the real
-# list of nodes. Replace them with the real nodes; lat/lon in decimal degrees.
+# ICMNS nodes, shown on /network/. One entry per city; the people at each node
+# are in _data/people.yml (matched by city). lat/lon in decimal degrees.
+# Europe
 - city: Amsterdam
   country: Netherlands
   region: Europe
   lat: 52.37
   lon: 4.90
+- city: Berlin
+  country: Germany
+  region: Europe
+  lat: 52.51
+  lon: 13.33
 - city: Montpellier
   country: France
   region: Europe
@@ -16,26 +21,43 @@
   region: Europe
   lat: 41.39
   lon: 2.17
+- city: Exeter
+  country: UK
+  region: Europe
+  lat: 50.73
+  lon: -3.53
+- city: Coventry
+  country: UK
+  region: Europe
+  lat: 52.38
+  lon: -1.56
 - city: Dublin
   country: Ireland
   region: Europe
   lat: 53.35
   lon: -6.26
-- city: Copenhagen
-  country: Denmark
-  region: Europe
-  lat: 55.68
-  lon: 12.57
+# North America
 - city: Montréal
   country: Canada
   region: North America
   lat: 45.50
   lon: -73.57
-- city: Boulder
+- city: Newark
   country: USA
   region: North America
-  lat: 40.01
-  lon: -105.27
+  lat: 40.74
+  lon: -74.18
+- city: Pittsburgh
+  country: USA
+  region: North America
+  lat: 40.44
+  lon: -79.96
+- city: Dallas
+  country: USA
+  region: North America
+  lat: 32.84
+  lon: -96.78
+# Asia
 - city: Shanghai
   country: China
   region: Asia

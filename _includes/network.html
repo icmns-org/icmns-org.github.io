@@ -85,6 +85,14 @@
     return link;
   });
 
+  // zoom the map to the nodes and their links, with some room around them
+  var box = gLinks.getBBox(), padX = 0.08 * box.width + 30, padTop = 50, padBottom = 40;
+  var fit = [box.x - padX, box.y - padTop, box.width + 2 * padX, box.height + padTop + padBottom];
+  var minAspect = 1.9;                                // not too tall a strip
+  if (fit[2] / fit[3] > 3.2) { var extra = fit[2] / 3.2 - fit[3]; fit[1] -= extra / 2; fit[3] += extra; }
+  if (fit[2] / fit[3] < minAspect) { var w = fit[3] * minAspect; fit[0] -= (w - fit[2]) / 2; fit[2] = w; }
+  svg.setAttribute('viewBox', fit.map(function (v) { return v.toFixed(1); }).join(' '));
+
   // nodes: a dot, a halo that flashes when the node fires, and a label on hover
   NODES.forEach(function (n, i) {
     var g = el('g', { class: 'node region-' + n.region.toLowerCase().replace(/[^a-z]+/g, '-'),
@@ -124,16 +132,16 @@
   // leading edge backwards: a small foot, a sharp upstroke to the overshoot,
   // repolarisation below rest (the undershoot), and a slow recovery.
   function ap(u) {
-    if (u < 0.10) return 0.12 * Math.pow(u / 0.10, 2);
-    if (u < 0.18) { var a = (u - 0.10) / 0.08; return 0.12 + 0.88 * (1 - Math.pow(1 - a, 3)); }
-    if (u < 0.42) { var b = (u - 0.18) / 0.24; return 1 - 1.28 * (0.5 - 0.5 * Math.cos(Math.PI * b)); }
-    return -0.28 * Math.exp(-(u - 0.42) / 0.16) * (1 - (u - 0.42) / 0.58);
+    if (u < 0.14) return 0.08 * Math.pow(u / 0.14, 2);                       // foot
+    if (u < 0.19) return 0.08 + 0.92 * Math.pow((u - 0.14) / 0.05, 0.7);     // upstroke
+    if (u < 0.27) return 1 - 1.3 * Math.pow((u - 0.19) / 0.08, 1.4);         // fall, past rest
+    return -0.3 * Math.exp(-(u - 0.27) / 0.18) * (1 - (u - 0.27) / 0.73);    // undershoot, recovery
   }
-  var WIDTH = 46, HEIGHT = 15;        // length along the link, and height of the peak (map units)
+  var WIDTH = 40, HEIGHT = 26;        // length along the link, and height of the peak (map units)
   function waveform(s) {
     var L = s.link.len, head = s.t * (L + WIDTH), d = '';
-    for (var k = 0; k <= 40; k++) {
-      var u = k / 40, along = head - u * WIDTH;
+    for (var k = 0; k <= 80; k++) {
+      var u = k / 80, along = head - u * WIDTH;
       if (along < 0 || along > L) continue;
       var at = s.forward ? along : L - along;
       var p = s.link.path.getPointAtLength(at), q = s.link.path.getPointAtLength(Math.min(L, at + 0.5));

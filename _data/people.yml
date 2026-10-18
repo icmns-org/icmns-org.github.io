@@ -1,0 +1,66 @@
+# People at the ICMNS nodes, shown on /network/ under the node with the same city.
+# No email addresses here: this repository is public.
+- name: Daniele Avitabile
+  institution: Vrije Universiteit Amsterdam
+  city: Amsterdam
+  country: Netherlands
+- name: Tilo Schwalger
+  institution: Bernstein Center for Computational Neuroscience Berlin
+  city: Berlin
+  country: Germany
+- name: Ernest Montbrió
+  institution: Universitat Pompeu Fabra
+  city: Barcelona
+  country: Spain
+- name: Chengcheng Huang
+  institution: University of Pittsburgh
+  city: Pittsburgh
+  country: USA
+- name: Andrea Barreiro
+  institution: Southern Methodist University
+  city: Dallas
+  country: USA
+- name: Songting Li
+  institution: Shanghai Jiao Tong University
+  city: Shanghai
+  country: China
+- name: James MacLaurin
+  institution: New Jersey Institute of Technology
+  city: Newark
+  country: USA
+- name: Alex Roxin
+  institution: Centre de Recerca Matemàtica   # TO CONFIRM (gmail address)
+  city: Barcelona
+  country: Spain
+- name: Kyle Wedgwood
+  institution: University of Exeter
+  city: Exeter
+  country: UK
+- name: Gemma Huguet
+  institution: Universitat Politècnica de Catalunya
+  city: Barcelona
+  country: Spain
+- name: Mathieu Desroches
+  institution: Inria, University of Montpellier
+  city: Montpellier
+  country: France
+- name: Antoni Guillamon
+  institution: Universitat Politècnica de Catalunya
+  city: Barcelona
+  country: Spain
+- name: Massimiliano Tamborrino
+  institution: University of Warwick
+  city: Coventry
+  country: UK
+- name: Áine Byrne
+  institution: University College Dublin
+  city: Dublin
+  country: Ireland
+- name: Jonathan Rubin
+  institution: University of Pittsburgh
+  city: Pittsburgh
+  country: USA
+- name: Anmar Khadra
+  institution: McGill University
+  city: Montréal
+  country: Canada

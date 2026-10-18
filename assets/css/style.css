@@ -193,7 +193,10 @@ figcaption { margin-top: .5rem; font-size: .75rem; color: var(--muted); }
 
 /* ---------------------------------------------------------------- network map */
 .network { position: relative; margin: 0 0 3rem; }
-.network-map { display: block; width: 100%; height: auto; overflow: visible; }
+.network-map { display: block; width: 100%; height: auto; overflow: hidden; }
+/* the map is cropped to the nodes: soften its edges so the crop doesn't look cut */
+.network-map { -webkit-mask-image: linear-gradient(to right, transparent, #000 6%, #000 94%, transparent), linear-gradient(to bottom, transparent, #000 10%, #000 88%, transparent);
+  -webkit-mask-composite: source-in; mask-image: linear-gradient(to right, transparent, #000 6%, #000 94%, transparent), linear-gradient(to bottom, transparent, #000 10%, #000 88%, transparent); mask-composite: intersect; }
 .network-map .land { stroke: var(--muted); stroke-opacity: .32; stroke-width: 3.1; stroke-linecap: round; fill: none; }
 .network { --europe: #5e81ac; --north-america: #a3be8c; --asia: #b48ead; --spike: #d08770; }
 :root[data-theme="dark"] .network { --europe: #88c0d0; --spike: #ebcb8b; }
@@ -213,15 +216,14 @@ figcaption { margin-top: .5rem; font-size: .75rem; color: var(--muted); }
   background: var(--band); color: var(--band-ink); font-size: .78rem; white-space: nowrap; pointer-events: none; opacity: 0; transition: opacity .15s; }
 .network-tip.on { opacity: 1; }
 .network-list { display: grid; gap: 1.5rem 3rem; grid-template-columns: repeat(auto-fit, minmax(12rem, 1fr)); border-top: 1px solid var(--rule); padding: 2rem 0 4rem; }
-.network-list h2 { font-size: 1.1rem; margin: 0 0 .5rem; }
+.network-list h2 { font-size: 1.3rem; margin: 0 0 .75rem; }
+.network-list h3 { font-family: var(--text); font-weight: 400; font-size: .72rem; text-transform: uppercase; letter-spacing: .1em; color: var(--muted); margin: 1.2rem 0 .3rem; }
+.network-list h3:first-of-type { margin-top: 0; }
 .network-list ul { list-style: none; margin: 0; padding: 0; }
 .network-list li { padding: .2rem 0; }
 .network-list li span { color: var(--muted); font-size: .85em; margin-left: .4em; }
-.network-list .people, .network-elsewhere .people { list-style: none; margin: .2rem 0 .6rem; padding: 0 0 0 1rem; border-left: 1px solid var(--rule); font-size: .85rem; }
-.network-elsewhere { border-top: 1px solid var(--rule); padding: 2rem 0 4rem; }
-.network-elsewhere h2 { font-size: 1.1rem; margin: 0 0 .25rem; }
-.network-elsewhere .people { column-width: 22rem; }
-.network-list + .network-elsewhere { margin-top: -2rem; }
+.network-list .people { list-style: none; margin: .2rem 0 .6rem; padding: 0 0 0 1rem; border-left: 1px solid var(--rule); font-size: .85rem; }
+
 
 /* ---------------------------------------------------------------- footer */
 .footer { background: var(--band); color: var(--band-muted); font-size: .8rem; padding: 1.5rem 0 2rem; }

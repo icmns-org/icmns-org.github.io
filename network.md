@@ -9,31 +9,29 @@ sitemap: false
 <div class="wrap">
   <header class="page-head">
     <h1>The ICMNS network</h1>
-    <p class="meta">{{ site.data.network | size }} nodes in {{ countries | size }} countries, across {{ regions | size }} regions.</p>
+    <p class="meta">{{ site.data.people | size }} people at {{ site.data.network | size }} nodes in {{ countries | size }} countries, across {{ regions | size }} regions.</p>
   </header>
 
   {% include network.html %}
 
   {%- assign people = site.data.people | default: empty %}
   <div class="network-list">
-    {% for r in regions %}
+    {%- for r in regions %}
     <section>
       <h2>{{ r.name }}</h2>
-      <ul>{% for n in r.items %}<li>{{ n.city }} <span>{{ n.country }}</span>
-        {%- assign here = people | where: "city", n.city -%}
-        {%- if here.size > 0 %}<ul class="people">{% for p in here %}<li>{{ p.name }} <span>{{ p.institution }}</span></li>{% endfor %}</ul>{% endif %}
-      </li>{% endfor %}</ul>
+      {%- assign by_country = r.items | group_by: "country" %}
+      {%- for c in by_country %}
+      <h3>{{ c.name }}</h3>
+      <ul>
+        {%- for n in c.items %}
+        <li>{{ n.city }}
+          {%- assign here = people | where: "city", n.city -%}
+          {%- if here.size > 0 %}<ul class="people">{% for p in here %}<li>{{ p.name }} <span>{{ p.institution }}</span></li>{% endfor %}</ul>{% endif %}
+        </li>
+        {%- endfor %}
+      </ul>
+      {%- endfor %}
     </section>
-    {% endfor %}
+    {%- endfor %}
   </div>
-
-  {%- assign node_cities = site.data.network | map: "city" -%}
-  {%- capture elsewhere -%}{% for p in people %}{% unless node_cities contains p.city %}<li>{{ p.name }} <span>{{ p.institution }}, {{ p.city }}</span></li>{% endunless %}{% endfor %}{%- endcapture -%}
-  {%- if elsewhere != "" %}
-  <div class="network-elsewhere">
-    <h2>Not yet on the map</h2>
-    <p class="meta">People whose city is not one of the nodes above.</p>
-    <ul class="people">{{ elsewhere }}</ul>
-  </div>
-  {%- endif %}
 </div>
