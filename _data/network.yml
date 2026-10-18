@@ -37,3 +37,7 @@
   region: Asia
   lat: 31.23
   lon: 121.47
+- country: New Zealand
+  region: Oceania
+  lat: -36.85
+  lon: 174.76

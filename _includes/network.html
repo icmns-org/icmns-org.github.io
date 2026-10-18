@@ -46,7 +46,8 @@
 
   NODES.forEach(function (n) { n.xy = project(n.lon, n.lat); n.links = []; });
 
-  // links: two nearest neighbours of each node, plus a minimum spanning tree
+  // links: up to two nearby neighbours of each node, plus a minimum spanning tree
+  // (which makes the long-distance links, and keeps the whole network connected)
   var pairs = {}, edges = [];
   function addEdge(i, j) {
     var k = Math.min(i, j) + '-' + Math.max(i, j);
@@ -57,7 +58,8 @@
     NODES.map(function (b, j) { return [dist(a, b), j]; })
       .filter(function (d) { return d[1] !== i; })
       .sort(function (p, q) { return p[0] - q[0]; })
-      .slice(0, 2).forEach(function (d) { addEdge(i, d[1]); });
+      .slice(0, 2).filter(function (d) { return d[0] < 0.8; })   // neighbours only if under ~5000 km
+      .forEach(function (d) { addEdge(i, d[1]); });
   });
   var inTree = [0];                                   // Prim
   while (inTree.length < NODES.length) {

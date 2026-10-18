@@ -18,7 +18,8 @@ sitemap: false
     {%- for r in regions %}
     <section>
       <h2>{{ r.name }}</h2>
-      {%- for n in r.items %}
+      {%- assign countries_here = r.items | sort: "country" %}
+      {%- for n in countries_here %}
       <h3>{{ n.country }}</h3>
       {%- assign here = people | where: "country", n.country %}
       <ul class="people">{% for p in here %}<li>{{ p.name }} <span>{{ p.institution }}</span></li>{% endfor %}</ul>
