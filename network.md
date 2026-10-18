@@ -1,8 +1,6 @@
 ---
 title: Network
 permalink: /network/
-robots: noindex
-sitemap: false
 ---
 {%- assign regions = site.data.network | group_by: "region" -%}
 <div class="wrap">
