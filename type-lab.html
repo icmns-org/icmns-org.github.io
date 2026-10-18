@@ -237,6 +237,66 @@ section.block { display: grid; gap: 1rem 3rem; }
 [data-palette="nord"] .nav a:hover { color: var(--accent); }
 
 /* ------------------------------------------------------------------
+   Nord experiments on inner pages: (1) Aurora status signals,
+   (2) Frost links and highlights, (3) a Polar Night band and footer,
+   (4) Nord syntax colours for maths and code.
+   ------------------------------------------------------------------ */
+.only-nord { display: none; }
+[data-palette="nord"] .only-nord { display: revert; }
+.prose p { margin: 0 0 1em; max-width: 62ch; }
+.prose p:last-child { margin-bottom: 0; }
+.note { font-size: .8rem; color: var(--muted); margin: .75rem 0 0; }
+@media (min-width: 52rem) { section.block > .note { grid-column: 2; } }
+
+/* Aurora colours (shared by light and dark); light mode uses deeper text tones for contrast */
+[data-palette="nord"] { --red: #bf616a; --orange: #d08770; --yellow: #ebcb8b; --green: #a3be8c; --purple: #b48ead; --comment: #616e88; }
+
+/* 1. status signals: a coloured dot and a quiet label */
+[data-palette="nord"] .status { display: inline-flex; align-items: center; gap: .45em; font-size: .85em; white-space: nowrap; }
+[data-palette="nord"] .status::before { content: ""; width: .6em; height: .6em; border-radius: 50%; background: currentColor; }
+[data-palette="nord"] .s-done { color: var(--muted); }
+[data-palette="nord"] .s-done::before { background: transparent; box-shadow: inset 0 0 0 1.5px var(--muted); }
+[data-palette="nord"] .s-soon::before { background: var(--red); box-shadow: 0 0 0 3px color-mix(in srgb, var(--red) 25%, transparent); }
+[data-palette="nord"] .s-open::before { background: var(--green); }
+[data-palette="nord"] .s-next::before { background: var(--yellow); }
+[data-palette="nord"] .data tr:has(.s-soon) td:first-child { box-shadow: inset 3px 0 0 var(--red); padding-left: .75rem; }
+
+/* 2. Frost for links and highlights */
+[data-palette="nord"] .prose a { color: var(--accent); text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: .2em; text-decoration-color: color-mix(in srgb, var(--accent) 45%, transparent); }
+[data-palette="nord"] .prose a:hover { text-decoration-color: currentColor; }
+[data-palette="nord"] h2 .n { color: var(--accent); }
+[data-palette="nord"] .news a:hover, [data-palette="nord"] .speakers li:hover .name { color: var(--accent); }
+[data-palette="nord"] ::selection { background: #88c0d0; color: #2e3440; }
+
+/* 3. a Polar Night band (full width) for past editions, and a dark footer */
+[data-palette="nord"] { --band: #2e3440; --band-ink: #eceff4; --band-muted: #a3acbd; --band-rule: #434c5e; }
+[data-palette="nord"][data-theme="dark"] { --band: #3b4252; --band-rule: #4c566a; }
+[data-palette="nord"] section.band { background: var(--band); color: var(--band-ink); box-shadow: 0 0 0 100vmax var(--band); clip-path: inset(0 -100vmax); border-top: 0; margin-top: 2rem; }
+[data-palette="nord"] section.band + section.block { border-top: 0; }
+[data-palette="nord"] section.band .data th { color: var(--band-muted); border-color: var(--band-ink); }
+[data-palette="nord"] section.band .data td { border-color: var(--band-rule); }
+[data-palette="nord"] section.band h2 .n { color: #88c0d0; }
+[data-palette="nord"] .footer { background: var(--band); color: var(--band-muted); border-top: 0; }
+
+/* 4. maths and code in Nord syntax colours */
+[data-palette="nord"] { --v-u: #5e81ac; --v-w: #a0779c; --v-f: #c0715c; }
+[data-palette="nord"][data-theme="dark"] { --v-u: #88c0d0; --v-w: #b48ead; --v-f: #d08770; }
+.eqn { margin: 0 0 1.5rem; padding: 1.5rem 0; text-align: center; }
+.eqn-line { font-family: "STIX Two Text", "Times New Roman", serif; font-size: clamp(1.15rem, 2.6vw, 1.7rem); white-space: nowrap; }
+.eqn .frac { display: inline-flex; flex-direction: column; text-align: center; font-size: .8em; line-height: 1.15; vertical-align: middle; margin: 0 .2em; }
+.eqn .frac > span:first-child { border-bottom: 1px solid currentColor; padding: 0 .1em; }
+.eqn .int { font-size: 1.6em; line-height: 1; vertical-align: -.3em; margin: 0 .05em 0 .1em; }
+.eqn sub { font-size: .55em; vertical-align: -1.1em; margin-left: -.15em; margin-right: .2em; }
+.eqn figcaption { font-size: .8rem; color: var(--muted); margin-top: .8rem; }
+.eqn .key { font-family: "STIX Two Text", serif; font-style: italic; font-size: 1.1rem; }
+.v-u { color: var(--v-u); } .v-w { color: var(--v-w); } .v-f { color: var(--v-f); }
+.code { margin: 0; padding: 1.1rem 1.25rem; border-radius: 6px; overflow-x: auto; background: #2e3440; color: #d8dee9;
+  font: 13px/1.65 "IBM Plex Mono", ui-monospace, monospace; }
+[data-theme="dark"] .code { background: #3b4252; }
+.code .kw { color: #81a1c1; } .code .fn { color: #88c0d0; } .code .nu { color: #b48ead; }
+.code .st { color: #a3be8c; } .code .op { color: #81a1c1; } .code .cm { color: #616e88; font-style: italic; }
+
+/* ------------------------------------------------------------------
    The switcher (deliberately neutral, not part of any design)
    ------------------------------------------------------------------ */
 .lab { position: fixed; z-index: 10; left: 50%; bottom: 16px; transform: translateX(-50%); display: flex; gap: 4px; padding: 4px; border-radius: 999px;
@@ -312,7 +372,15 @@ body { padding-bottom: 80px; }
     </figure>
 
     <section class="block">
-      <h2><span class="n">1</span>Plenary speakers</h2>
+      <h2><span class="n">1</span>About</h2>
+      <div class="prose">
+        <p>The {{ current.edition }} International Conference on Mathematical Neuroscience will take place in {{ current.location | split: "," | first }}, {{ current.dates }}. The scientific programme will include keynote, invited and contributed talks.</p>
+        <p>For registration, abstract submission, venue and travel, see the <a href="{{ site_link.url }}">official conference website</a>. To hear about deadlines, join the <a href="{{ site.mailing_list }}">announcements mailing list</a>.</p>
+      </div>
+    </section>
+
+    <section class="block">
+      <h2><span class="n">2</span>Plenary speakers</h2>
       <ul class="speakers">
         <li><span class="name">Daniela Calvetti</span><address class="aff">Case Western Reserve University, USA</address></li>
         <li><span class="name">Daniela Egas Santander</span><address class="aff">Max Planck Institute of Molecular Cell Biology and Genetics, Dresden</address></li>
@@ -323,20 +391,21 @@ body { padding-bottom: 80px; }
     </section>
 
     <section class="block">
-      <h2><span class="n">2</span>Key dates</h2>
+      <h2><span class="n">3</span>Key dates</h2>
       <table class="data">
-        <thead><tr><th>Milestone</th><th>Date</th></tr></thead>
+        <thead><tr><th>Milestone</th><th>Date</th><th class="only-nord">Status</th></tr></thead>
         <tbody>
-          <tr><td>Abstract submission opens</td><td>TBA</td></tr>
-          <tr><td>Abstract deadline</td><td>TBA</td></tr>
-          <tr><td>Registration deadline</td><td>TBA</td></tr>
-          <tr><td>Conference</td><td>{{ current.dates }}</td></tr>
+          <tr><td>Abstract submission opens</td><td>TBA</td><td class="only-nord"><span class="status s-done">Done</span></td></tr>
+          <tr><td>Abstract deadline</td><td>TBA</td><td class="only-nord"><span class="status s-soon">Closes soon</span></td></tr>
+          <tr><td>Registration deadline</td><td>TBA</td><td class="only-nord"><span class="status s-open">Open</span></td></tr>
+          <tr><td>Conference</td><td>{{ current.dates }}</td><td class="only-nord"><span class="status s-next">Upcoming</span></td></tr>
         </tbody>
       </table>
+      <p class="note only-nord">The statuses are examples, to show the colours.</p>
     </section>
 
     <section class="block">
-      <h2><span class="n">3</span>News</h2>
+      <h2><span class="n">4</span>News</h2>
       <ul class="news">
         {%- for post in site.posts limit: 3 %}
         <li><time datetime="{{ post.date | date_to_xmlschema }}">{{ post.date | date: "%-d %B %Y" }}</time><a href="{{ post.url | relative_url }}">{{ post.title }}</a></li>
@@ -344,8 +413,8 @@ body { padding-bottom: 80px; }
       </ul>
     </section>
 
-    <section class="block">
-      <h2><span class="n">4</span>Past editions</h2>
+    <section class="block band">
+      <h2><span class="n">5</span>Past editions</h2>
       <table class="data">
         <thead><tr><th>Year</th><th>Location</th><th>Dates</th></tr></thead>
         <tbody>
@@ -355,6 +424,30 @@ body { padding-bottom: 80px; }
         </tbody>
       </table>
     </section>
+
+    <section class="block only-nord">
+      <h2><span class="n">6</span>Maths and code</h2>
+      <div class="prose">
+        <figure class="eqn">
+          <div class="eqn-line" aria-label="tau times the partial derivative of u with respect to t equals minus u plus the integral of w of x minus y times f of u of y and t, d y">
+            <i>τ</i>
+            <span class="frac"><span>∂<i class="v-u">u</i></span><span>∂<i>t</i></span></span>
+            = −<i class="v-u">u</i>(<i>x</i>, <i>t</i>) +
+            <span class="int">∫</span><sub>Ω</sub>
+            <i class="v-w">w</i>(<i>x</i> − <i>y</i>) <i class="v-f">f</i>(<i class="v-u">u</i>(<i>y</i>, <i>t</i>)) d<i>y</i>
+          </div>
+          <figcaption><span class="key v-u">u</span> activity · <span class="key v-w">w</span> connectivity · <span class="key v-f">f</span> firing rate</figcaption>
+        </figure>
+<pre class="code"><code><span class="kw">import</span> numpy <span class="kw">as</span> np
+
+<span class="cm"># Amari neural field on a ring: τ du/dt = −u + w ∗ f(u)</span>
+x <span class="op">=</span> np.<span class="fn">linspace</span>(<span class="op">-</span>np.pi, np.pi, <span class="nu">256</span>, endpoint<span class="op">=</span><span class="kw">False</span>)
+w <span class="op">=</span> <span class="kw">lambda</span> d: np.<span class="fn">exp</span>(<span class="op">-</span>d<span class="op">**</span><span class="nu">2</span>) <span class="op">-</span> <span class="nu">0.5</span> <span class="op">*</span> np.<span class="fn">exp</span>(<span class="op">-</span>d<span class="op">**</span><span class="nu">2</span> <span class="op">/</span> <span class="nu">4</span>)  <span class="cm"># Mexican hat</span>
+f <span class="op">=</span> <span class="kw">lambda</span> u: <span class="nu">1</span> <span class="op">/</span> (<span class="nu">1</span> <span class="op">+</span> np.<span class="fn">exp</span>(<span class="op">-</span><span class="nu">20</span> <span class="op">*</span> (u <span class="op">-</span> <span class="nu">0.3</span>)))       <span class="cm"># firing rate</span>
+<span class="fn">print</span>(<span class="st">"ICMNS 2027"</span>)</code></pre>
+      </div>
+    </section>
+
   </div>
 </main>
 
