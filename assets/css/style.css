@@ -133,9 +133,8 @@ th { font-weight: 400; font-size: .72rem; text-transform: uppercase; letter-spac
 .data td.year a { text-decoration: none; }
 
 /* past editions: each row links to its edition */
-.editions tbody tr { position: relative; cursor: pointer; }
+.editions tbody tr { cursor: pointer; }
 .editions td.year a { color: var(--accent); }
-.editions td.year a::after { content: ""; position: absolute; inset: 0; }   /* the whole row is the link */
 .editions td.go { width: 2rem; text-align: right; padding-right: .5rem; color: var(--accent); font-family: var(--display); font-size: 1.1rem; transition: transform .15s ease; }
 .editions tbody tr:hover td, .editions tbody tr:focus-within td { background: color-mix(in srgb, var(--accent-soft) 10%, transparent); }
 .editions tbody tr:hover td.go, .editions tbody tr:focus-within td.go { transform: translateX(.25rem); }

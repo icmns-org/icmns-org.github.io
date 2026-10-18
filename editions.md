@@ -13,9 +13,19 @@ permalink: /editions/
       <thead><tr><th>Year</th><th>Edition</th><th>Location</th><th>Dates</th><th><span class="visually-hidden">Open</span></th></tr></thead>
       <tbody>
         {% for e in editions %}
-        <tr><td class="year"><a href="{{ e.url | relative_url }}">{{ e.year }}</a></td><td>{{ e.edition }}</td><td>{{ e.location }}</td><td>{{ e.dates }}</td><td class="go" aria-hidden="true">→</td></tr>
+        <tr data-href="{{ e.url | relative_url }}"><td class="year"><a href="{{ e.url | relative_url }}">{{ e.year }}</a></td><td>{{ e.edition }}</td><td>{{ e.location }}</td><td>{{ e.dates }}</td><td class="go" aria-hidden="true">→</td></tr>
         {% endfor %}
       </tbody>
     </table>
   </section>
 </div>
+<script>
+  // Make each row of the table open its edition (the year is also a normal link)
+  document.querySelectorAll('.editions tr[data-href]').forEach(function (row) {
+    row.addEventListener('click', function (e) {
+      if (e.target.closest('a') || (window.getSelection && String(window.getSelection()))) return;
+      if (e.metaKey || e.ctrlKey || e.button === 1) window.open(row.dataset.href, '_blank');
+      else location.href = row.dataset.href;
+    });
+  });
+</script>
