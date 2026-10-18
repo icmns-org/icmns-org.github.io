@@ -176,7 +176,7 @@ figure { margin: 2rem 0; }
 figure img { display: block; width: 100%; height: auto; border-radius: 4px; }
 figcaption { margin-top: .5rem; font-size: .75rem; color: var(--muted); }
 
-/* maths: typeset by LaTeX (CM Bright) as SVG, in the text colour */
+/* maths: typeset by LaTeX (IBM Plex Mono Italic) as SVG, in the text colour */
 .math svg { display: inline-block; overflow: visible; }
 .math-inline { font-size: 1.12em; white-space: nowrap; }
 .math-block { text-align: center; margin: 1.4rem 0 1.6rem; font-size: 1.3em; overflow-x: auto; overflow-y: hidden; }

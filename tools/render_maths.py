@@ -1,4 +1,4 @@
-"""Typeset the maths on the site with LaTeX (CM Bright) as SVG.
+"""Typeset the maths on the site with LaTeX as SVG, in IBM Plex Mono Italic.
 
 Pages that have `math: true` in their front matter can contain formulas written
 between double dollar signs:
@@ -14,8 +14,8 @@ Run it after adding or changing a formula, then commit the new files in _maths/:
 
     python3 tools/render_maths.py
 
-Requires a TeX distribution with the cmbright package, and dvisvgm (both come
-with TeX Live and MacTeX). Formulas already typeset are skipped; --force redoes all.
+Requires XeLaTeX with the unicode-math, plex and firamath packages, and dvisvgm
+(all part of TeX Live and MacTeX). Formulas already typeset are skipped; --force redoes all.
 """
 import hashlib
 import os
@@ -29,9 +29,16 @@ ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 OUT = os.path.join(ROOT, "_maths")
 SKIP = {"_site", "vendor", "node_modules", ".git", "_maths", "tools"}
 
+# Letters in IBM Plex Mono Italic and digits in IBM Plex Mono, to match the text;
+# Plex has no maths symbols and almost no Greek, so those come from Fira Math,
+# a sans-serif maths font (Plex's own pi and partial sign are kept).
 PREAMBLE = r"""\documentclass[10pt]{article}
 \usepackage{amsmath}
-\usepackage{cmbright}
+\usepackage{unicode-math}
+\setmathfont{FiraMath-Regular.otf}
+\setmathfont[range={it/{latin,Latin}}]{IBMPlexMono-Italic.otf}
+\setmathfont[range={up/{num}}]{IBMPlexMono-Regular.otf}
+\setmathfont[range={"03C0,"2202}]{IBMPlexMono-Italic.otf}
 \hoffset=-1in \voffset=-1in
 \begin{document}
 """
@@ -78,12 +85,12 @@ def typeset(items):
     try:
         with open(os.path.join(tmp, "m.tex"), "w") as fh:
             fh.write(PREAMBLE + "\n".join(pages) + "\n\\end{document}\n")
-        run = subprocess.run(["latex", "-interaction=nonstopmode", "-halt-on-error", "m.tex"],
+        run = subprocess.run(["xelatex", "-no-pdf", "-interaction=nonstopmode", "-halt-on-error", "m.tex"],
                              cwd=tmp, capture_output=True, text=True)
         if run.returncode:
             sys.exit("LaTeX failed:\n" + "\n".join(l for l in run.stdout.splitlines() if l.startswith("!") or l.startswith("l.")))
         subprocess.run(["dvisvgm", "--no-fonts", "--bbox=papersize", "--page=1-",
-                        "-o", "p-%4p.svg", "m.dvi"], cwd=tmp, check=True, capture_output=True)
+                        "-o", "p-%4p.svg", "m.xdv"], cwd=tmp, check=True, capture_output=True)
         dims = re.findall(r"DIM:([\d.]+)pt:([\d.]+)pt:([\d.]+)pt", open(os.path.join(tmp, "m.log")).read())
         for n, ((k, _), (w, h, d)) in enumerate(zip(items, dims), start=1):
             svg = open(os.path.join(tmp, f"p-{n:04d}.svg")).read()

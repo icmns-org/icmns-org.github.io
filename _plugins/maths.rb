@@ -1,5 +1,5 @@
 # Replaces $$...$$ formulas on pages with `math: true` by the SVGs that
-# tools/render_maths.py typeset with LaTeX (CM Bright) into _maths/.
+# tools/render_maths.py typeset with LaTeX (IBM Plex Mono Italic) into _maths/.
 # A formula on a line of its own is set as display maths, centred.
 require "digest"
 require "cgi"
