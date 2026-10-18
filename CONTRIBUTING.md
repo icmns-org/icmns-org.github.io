@@ -210,7 +210,7 @@ $$ \frac{\partial u}{\partial t} = -u + \int w(x-y)\, f(u(y,t))\, dy. $$
 2. If it failed, click the run, then the red step, to see the error. It usually names the file and line, and is almost always a problem in the `---` header (a missing space, an unquoted colon, a tab).
 3. Fix the file and commit again, or undo your change: open the file, click **History**, open your commit, and use **Revert** (or ask a maintainer).
 
-If the site looks unchanged after a green tick, force-refresh your browser (Cmd+Shift+R on Mac, Ctrl+F5 on Windows).
+If the site looks unchanged after a green tick, force-refresh your browser: Cmd+Option+R in Safari, Cmd+Shift+R in Chrome or Firefox on Mac, Ctrl+F5 on Windows.
 
 ---
 
