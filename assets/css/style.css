@@ -11,7 +11,7 @@
   --accent-soft: #5e81ac;
   --btn: #88c0d0;
   --btn-ink: #2e3440;
-  --band: #2e3440;            /* Polar Night panels: footer and the past-editions band */
+  --band: #2e3440;            /* Polar Night panel: the footer */
   --band-ink: #eceff4;
   --band-muted: #a3acbd;
   --band-rule: #434c5e;
@@ -95,8 +95,8 @@ h1, h2, h3 { font-family: var(--display); font-weight: 400; letter-spacing: -.01
 .page-head { padding: clamp(2rem, 6vw, 4.5rem) 0 2.5rem; }
 .page-head h1 { font-weight: 300; font-size: clamp(2.3rem, 5vw, 4rem); line-height: 1.05; letter-spacing: -.025em; margin: 0; max-width: 20ch; }
 .page-head .meta { margin: 1rem 0 0; }
-.page-head .meta a, .prose a { color: var(--accent); text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: .2em; text-decoration-color: color-mix(in srgb, var(--accent) 45%, transparent); }
-.page-head .meta a:hover, .prose a:hover { text-decoration-color: currentColor; }
+.page-head .meta a, .prose a { color: var(--accent); font-weight: 500; text-decoration: none; }
+.page-head .meta a:hover, .prose a:hover, .page-head .meta a:focus-visible, .prose a:focus-visible { text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: .2em; }
 
 .intro { padding-bottom: 2.5rem; }
 .prose { max-width: 66ch; }
@@ -131,7 +131,20 @@ th, td { text-align: left; vertical-align: baseline; padding: .5rem 1rem .5rem 0
 th { font-weight: 400; font-size: .72rem; text-transform: uppercase; letter-spacing: .1em; color: var(--muted); border-bottom-color: var(--ink); padding-top: 0; }
 .data td.year { font-family: var(--display); font-size: 1.1rem; font-weight: 500; font-variant-numeric: tabular-nums; }
 .data td.year a { text-decoration: none; }
-.data td.year a:hover { color: var(--band-accent); }
+
+/* past editions: each row links to its edition */
+.editions tbody tr { position: relative; cursor: pointer; }
+.editions td.year a { color: var(--accent); }
+.editions td.year a::after { content: ""; position: absolute; inset: 0; }   /* the whole row is the link */
+.editions td.go { width: 2rem; text-align: right; padding-right: .5rem; color: var(--accent); font-family: var(--display); font-size: 1.1rem; transition: transform .15s ease; }
+.editions tbody tr:hover td, .editions tbody tr:focus-within td { background: color-mix(in srgb, var(--accent-soft) 10%, transparent); }
+.editions tbody tr:hover td.go, .editions tbody tr:focus-within td.go { transform: translateX(.25rem); }
+.editions td.year a:focus-visible { outline: none; }
+.editions tbody tr:focus-within { outline: 2px solid var(--accent-soft); outline-offset: -2px; }
+.editions td:first-child { padding-left: .5rem; }
+.editions th:first-child { padding-left: .5rem; }
+.editions-list { margin-bottom: 4rem; }
+.visually-hidden { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
 .table-scroll { overflow-x: auto; }
 
 /* key dates: Aurora status signals */
@@ -143,13 +156,6 @@ th { font-weight: 400; font-size: .72rem; text-transform: uppercase; letter-spac
 .s-open::before { background: var(--green); }
 .s-next::before { background: var(--yellow); }
 .key-dates tr.is-soon td:first-child { box-shadow: inset 3px 0 0 var(--red); padding-left: .75rem; }
-
-/* ---------------------------------------------------------------- Polar Night band */
-.band { background: var(--band); color: var(--band-ink); box-shadow: 0 0 0 100vmax var(--band); clip-path: inset(0 -100vmax); padding: 2rem 0 2.5rem; margin-bottom: -1px; }
-.band th { color: var(--band-muted); border-bottom-color: var(--band-ink); }
-.band td { border-bottom-color: var(--band-rule); }
-.band + * { margin-top: 0; }
-main:has(> .wrap > .band:last-child) + .footer { border-top: 1px solid var(--band-rule); }
 
 /* ---------------------------------------------------------------- news */
 .news { list-style: none; margin: 0; padding: 0; border-top: 1px solid var(--rule); }
