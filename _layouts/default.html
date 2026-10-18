@@ -22,8 +22,8 @@
   <header class="masthead">
     <div class="wrap">
       <a class="brand" href="{{ '/' | relative_url }}">
-        <img class="logo-light" src="{{ '/assets/logo/icmns_mark_small-light.svg' | relative_url }}" alt="" width="44" height="44">
-        <img class="logo-dark" src="{{ '/assets/logo/icmns_mark_small-dark.svg' | relative_url }}" alt="" width="44" height="44">
+        <img class="logo-light" src="{{ '/assets/logo/icmns_mark_small-light.svg' | relative_url }}?v={{ site.time | date: '%s' }}" alt="" width="44" height="44">
+        <img class="logo-dark" src="{{ '/assets/logo/icmns_mark_small-dark.svg' | relative_url }}?v={{ site.time | date: '%s' }}" alt="" width="44" height="44">
         <span>{{ site.title }}</span>
       </a>
       <nav class="nav" aria-label="Main">

@@ -5,8 +5,8 @@ title: Home
 <div class="wrap">
   <section class="landing">
     <div class="landing-mark">
-      <img class="logo-light" src="{{ '/assets/logo/icmns_mark-light.svg' | relative_url }}" alt="The ICMNS logo: a brain whose folds are a Turing pattern, drawn as fibres" width="880" height="880">
-      <img class="logo-dark" src="{{ '/assets/logo/icmns_mark-dark.svg' | relative_url }}" alt="" width="880" height="880">
+      <img class="logo-light" src="{{ '/assets/logo/icmns_mark-light.svg' | relative_url }}?v={{ site.time | date: '%s' }}" alt="The ICMNS logo: a brain whose folds are a Turing pattern, drawn as fibres" width="880" height="880">
+      <img class="logo-dark" src="{{ '/assets/logo/icmns_mark-dark.svg' | relative_url }}?v={{ site.time | date: '%s' }}" alt="" width="880" height="880">
     </div>
     <div>
       <h1>International Conference on Mathematical Neuroscience</h1>
