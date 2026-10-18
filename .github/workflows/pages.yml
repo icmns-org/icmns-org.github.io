@@ -35,7 +35,10 @@ jobs:
           if [ ! -x ~/texlive/bin/x86_64-linux/xelatex ]; then
             cd "$RUNNER_TEMP"
             curl -sSL https://mirror.ctan.org/systems/texlive/tlnet/install-tl-unx.tar.gz | tar xz
-            printf '%s\n' "selected_scheme scheme-infraonly" "TEXDIR $HOME/texlive" \
+            T="$HOME/texlive"
+            printf '%s\n' "selected_scheme scheme-infraonly" "TEXDIR $T" \
+              "TEXMFLOCAL $T/texmf-local" "TEXMFSYSVAR $T/texmf-var" "TEXMFSYSCONFIG $T/texmf-config" \
+              "TEXMFVAR $T/texmf-uservar" "TEXMFCONFIG $T/texmf-userconfig" "TEXMFHOME $T/texmf-home" \
               "tlpdbopt_install_docfiles 0" "tlpdbopt_install_srcfiles 0" "tlpdbopt_autobackup 0" > profile
             install-tl-*/install-tl --profile profile --no-interaction > /dev/null
             ~/texlive/bin/x86_64-linux/tlmgr install latex-bin xetex amsmath unicode-math \
