@@ -101,6 +101,11 @@ def typeset(items):
             svg = re.sub(r"\s(width|height)=['\"][^'\"]*['\"]", "", svg, count=2)
             svg = svg.replace("<svg ", f'<svg style="width:{w:.3f}em;height:{h + d:.3f}em;'
                               f'vertical-align:-{d:.3f}em" fill="currentColor" aria-hidden="true" ', 1)
+            # many formulas share one page: give each its own glyph names, or a formula
+            # can borrow another's glyphs (e.g. a digit from a larger display equation)
+            svg = re.sub(r"\bid=(['\"])", rf"id=\1m{k}-", svg)
+            svg = re.sub(r"href=(['\"])#", rf"href=\1#m{k}-", svg)
+            svg = re.sub(r"url\(#", f"url(#m{k}-", svg)
             svg = re.sub(r"\s*\n\s*", " ", svg).strip()      # one line, safe inside Markdown
             with open(os.path.join(OUT, k + ".svg"), "w") as fh:
                 fh.write(svg + "\n")
