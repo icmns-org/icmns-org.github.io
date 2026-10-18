@@ -87,10 +87,10 @@ h1, h2, h3 { font-family: var(--display); font-weight: 400; letter-spacing: -.01
 /* the home page fits the window: logo and title centred between menu and footer */
 .is-home main { display: flex; align-items: center; }
 .is-home main > .wrap { width: 100%; }
-.landing { display: grid; gap: 2rem clamp(1.5rem, 5vw, 5rem); align-items: center; padding: 2rem 0; }
-.landing-mark img { width: 100%; height: auto; max-height: calc(100vh - 15rem); object-fit: contain; display: block; }   /* never taller than the window */
-.landing h1 { font-weight: 300; font-size: clamp(2.5rem, 5.2vw, 4.4rem); line-height: 1.04; letter-spacing: -.025em; margin: 0; }
-.landing-next { margin: 2rem 0 0; font-size: .95rem; }
+.landing { display: grid; gap: 2rem clamp(1.5rem, 5vw, 5rem); align-items: center; padding: min(2rem, 3vh) 0; }
+.landing-mark img { width: 100%; height: auto; max-height: calc(100vh - 12rem); object-fit: contain; display: block; }   /* never taller than the window */
+.landing h1 { font-weight: 300; font-size: clamp(1.8rem, min(5.2vw, 8vh), 4.4rem); line-height: 1.04; letter-spacing: -.025em; margin: 0; }
+.landing-next { margin: min(2rem, 3.5vh) 0 0; font-size: .95rem; }
 @media (min-width: 52rem) { .landing { grid-template-columns: 5fr 7fr; } }
 @media (max-width: 51.99rem) { .landing-mark { max-width: 22rem; } }
 
