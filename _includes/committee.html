@@ -1,0 +1,21 @@
+{%- comment -%}
+  The steering committee, by region and country, from _data/people.yml and
+  _data/network.yml. Used on the About page and on /network/.
+{%- endcomment -%}
+{%- assign regions = site.data.network | group_by: "region" -%}
+{%- assign people = site.data.people | default: empty | sort: "surname" %}
+  <div class="network-list">
+    {%- for r in regions %}
+    <section class="network-region">
+      <h3>{{ r.name }}</h3>
+        {%- assign countries_here = r.items | sort: "country" %}
+        {%- for n in countries_here %}
+        {%- assign here = people | where: "country", n.country %}
+        <div class="network-country">
+          <h4>{{ n.country }}</h4>
+          <ul>{% for p in here %}<li><span class="who">{{ p.name }}</span><span class="where">{{ p.institution }}</span></li>{% endfor %}</ul>
+        </div>
+        {%- endfor %}
+    </section>
+    {%- endfor %}
+  </div>
