@@ -1,4 +1,4 @@
-"""Typeset the maths on the site with LaTeX (CM Bright, semi-bold) as SVG.
+"""Typeset the maths on the site with LaTeX (CM Bright) as SVG.
 
 Pages that have `math: true` in their front matter can contain formulas written
 between double dollar signs:
@@ -32,11 +32,8 @@ SKIP = {"_site", "vendor", "node_modules", ".git", "_maths", "tools"}
 PREAMBLE = r"""\documentclass[10pt]{article}
 \usepackage{amsmath}
 \usepackage{cmbright}
-% semi-bold maths: letters (cmbright's bold maths version) and digits too
-\SetSymbolFont{operators}{bold}{OT1}{cmbr}{b}{n}
 \hoffset=-1in \voffset=-1in
 \begin{document}
-\boldmath
 """
 
 DISPLAY = re.compile(r"^[ \t]*\$\$(.+?)\$\$[ \t]*$", re.M)
