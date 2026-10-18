@@ -19,6 +19,7 @@
 <script>
 (function () {
   var NODES = {{ site.data.network | jsonify }};
+  var PEOPLE = {{ site.data.people | default: empty | jsonify }} || [];
   var svg = document.querySelector('.network-map'), NS = 'http://www.w3.org/2000/svg';
   var gLinks = svg.querySelector('.links'), gSpikes = svg.querySelector('.spikes'), gNodes = svg.querySelector('.nodes');
   var tip = document.querySelector('.network-tip');
@@ -86,12 +87,14 @@
 
   // nodes: a dot, a halo that flashes when the node fires, and a label on hover
   NODES.forEach(function (n, i) {
-    var g = el('g', { class: 'node', transform: 'translate(' + n.xy + ')', tabindex: 0,
+    var g = el('g', { class: 'node region-' + n.region.toLowerCase().replace(/[^a-z]+/g, '-'),
+                      transform: 'translate(' + n.xy + ')', tabindex: 0,
                       'aria-label': n.city + ', ' + n.country }, gNodes);
     n.halo = el('circle', { r: 4, class: 'halo' }, g);
     el('circle', { r: 4, class: 'dot' }, g);
     function show() {
-      tip.textContent = n.city + ' · ' + n.country;
+      var ppl = PEOPLE.filter(function (p) { return p.city === n.city; }).length;
+      tip.textContent = n.city + ' · ' + n.country + (ppl ? ' · ' + ppl + (ppl > 1 ? ' people' : ' person') : '');
       var vb = svg.viewBox.baseVal;
       tip.style.left = ((n.xy[0] - vb.x) / vb.width * 100) + '%';
       tip.style.top = ((n.xy[1] - vb.y) / vb.height * 100) + '%';
@@ -114,21 +117,45 @@
     out.sort(function () { return Math.random() - 0.5; }).slice(0, 1 + (Math.random() < 0.35)).forEach(function (l) {
       if (spikes.length > 14) return;
       spikes.push({ link: l, forward: l.a === i, t: 0, speed: 0.11 + 0.04 * Math.random(),
-                    dot: el('circle', { r: 2.6, class: 'spike' }, gSpikes) });
+                    dot: el('path', { class: 'spike' }, gSpikes) });
     });
+  }
+  // The shape of an action potential, as a function of u in [0, 1] from the
+  // leading edge backwards: a small foot, a sharp upstroke to the overshoot,
+  // repolarisation below rest (the undershoot), and a slow recovery.
+  function ap(u) {
+    if (u < 0.10) return 0.12 * Math.pow(u / 0.10, 2);
+    if (u < 0.18) { var a = (u - 0.10) / 0.08; return 0.12 + 0.88 * (1 - Math.pow(1 - a, 3)); }
+    if (u < 0.42) { var b = (u - 0.18) / 0.24; return 1 - 1.28 * (0.5 - 0.5 * Math.cos(Math.PI * b)); }
+    return -0.28 * Math.exp(-(u - 0.42) / 0.16) * (1 - (u - 0.42) / 0.58);
+  }
+  var WIDTH = 46, HEIGHT = 15;        // length along the link, and height of the peak (map units)
+  function waveform(s) {
+    var L = s.link.len, head = s.t * (L + WIDTH), d = '';
+    for (var k = 0; k <= 40; k++) {
+      var u = k / 40, along = head - u * WIDTH;
+      if (along < 0 || along > L) continue;
+      var at = s.forward ? along : L - along;
+      var p = s.link.path.getPointAtLength(at), q = s.link.path.getPointAtLength(Math.min(L, at + 0.5));
+      var tx = q.x - p.x, ty = q.y - p.y, tl = Math.hypot(tx, ty) || 1;
+      var nx = -ty / tl, ny = tx / tl;
+      if (ny > 0) { nx = -nx; ny = -ny; }                 // always draw the peak upwards
+      var v = ap(u) * HEIGHT;
+      d += (d ? 'L' : 'M') + (p.x + nx * v).toFixed(1) + ',' + (p.y + ny * v).toFixed(1);
+    }
+    return d;
   }
   var last = performance.now();
   function frame(now) {
     var dt = Math.min(now - last, 50) / 1000; last = now;
     spikes = spikes.filter(function (s) {
-      s.t += dt * s.speed * 300 / s.link.len * 1.6;    // roughly constant speed along the map
+      s.t += dt * s.speed * 300 / (s.link.len + WIDTH) * 1.6;   // roughly constant speed along the map
       if (s.t >= 1) {
         s.dot.remove();
         fire(s.forward ? s.link.b : s.link.a, s.link);
         return false;
       }
-      var p = s.link.path.getPointAtLength((s.forward ? s.t : 1 - s.t) * s.link.len);
-      s.dot.setAttribute('cx', p.x); s.dot.setAttribute('cy', p.y);
+      s.dot.setAttribute('d', waveform(s));
       return true;
     });
     if (!spikes.length) fire(Math.floor(Math.random() * NODES.length));   // keep it alive

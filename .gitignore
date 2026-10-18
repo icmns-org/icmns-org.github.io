@@ -5,3 +5,6 @@ _site/
 vendor/
 .bundle/
 .DS_Store
+
+# Steering committee list: kept local until it is announced (the repository is public)
+_data/people.yml
