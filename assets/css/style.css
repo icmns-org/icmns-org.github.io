@@ -176,6 +176,10 @@ figure { margin: 2rem 0; }
 figure img { display: block; width: 100%; height: auto; border-radius: 4px; }
 figcaption { margin-top: .5rem; font-size: .75rem; color: var(--muted); }
 
+/* colophon: the logo above the introduction */
+.colophon-logo { max-width: 22rem; margin: 0 0 2rem; }
+.colophon-logo img { width: 100%; height: auto; }
+
 /* ---------------------------------------------------------------- footer */
 .footer { background: var(--band); color: var(--band-muted); font-size: .8rem; padding: 1.5rem 0 2rem; }
 .footer .wrap { display: flex; flex-wrap: wrap; justify-content: space-between; gap: .5rem 2rem; }
