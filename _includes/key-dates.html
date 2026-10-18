@@ -1,0 +1,46 @@
+{%- comment -%}
+  Key dates table with a status for each row, worked out from today's date
+  when the site is built (the site rebuilds every night, so statuses stay current).
+  Usage, in an edition file:  {% include key-dates.html dates=page.key_dates %}
+
+  Each entry in key_dates (front matter) has:
+    milestone: text shown in the first column
+    date:      YYYY-MM-DD, or TBA
+    until:     optional end date (YYYY-MM-DD), e.g. the last day of the conference
+               or the date a submission window closes
+    label:     optional text to show instead of the date, e.g. "1–4 June 2027"
+    kind:      deadline (default), window or event
+      deadline: Upcoming → Closes soon (last 3 weeks) → Closed
+      window:   Upcoming → Open (from date until "until") → Closed
+      event:    Upcoming → Under way (from date until "until") → Done
+{%- endcomment -%}
+{%- assign now = site.time | date: '%s' | plus: 0 -%}
+{%- assign soon = 1814400 -%}
+<table class="data key-dates">
+  <thead><tr><th>Milestone</th><th>Date</th><th>Status</th></tr></thead>
+  <tbody>
+  {%- for d in include.dates %}
+    {%- assign status = "" -%}{%- assign cls = "" -%}
+    {%- if d.date and d.date != "TBA" -%}
+      {%- assign start = d.date | date: '%s' | plus: 0 -%}
+      {%- if d.until -%}{%- assign stop = d.until | date: '%s' | plus: 86399 -%}{%- else -%}{%- assign stop = start | plus: 86399 -%}{%- endif -%}
+      {%- assign kind = d.kind | default: "deadline" -%}
+      {%- if kind == "deadline" -%}
+        {%- assign left = stop | minus: now -%}
+        {%- if left < 0 -%}{%- assign status = "Closed" -%}{%- assign cls = "s-done" -%}
+        {%- elsif left < soon -%}{%- assign status = "Closes soon" -%}{%- assign cls = "s-soon" -%}
+        {%- else -%}{%- assign status = "Upcoming" -%}{%- assign cls = "s-next" -%}{%- endif -%}
+      {%- else -%}
+        {%- if now < start -%}{%- assign status = "Upcoming" -%}{%- assign cls = "s-next" -%}
+        {%- elsif now <= stop -%}{%- if kind == "window" -%}{%- assign status = "Open" -%}{%- else -%}{%- assign status = "Under way" -%}{%- endif -%}{%- assign cls = "s-open" -%}
+        {%- else -%}{%- if kind == "window" -%}{%- assign status = "Closed" -%}{%- else -%}{%- assign status = "Done" -%}{%- endif -%}{%- assign cls = "s-done" -%}{%- endif -%}
+      {%- endif -%}
+    {%- endif %}
+    <tr{% if cls == "s-soon" %} class="is-soon"{% endif %}>
+      <td>{{ d.milestone }}</td>
+      <td>{% if d.label %}{{ d.label }}{% elsif d.date and d.date != "TBA" %}{{ d.date | date: "%-d %B %Y" }}{% else %}TBA{% endif %}</td>
+      <td>{% if status != "" %}<span class="status {{ cls }}">{{ status }}</span>{% endif %}</td>
+    </tr>
+  {%- endfor %}
+  </tbody>
+</table>

@@ -1,17 +1,16 @@
 ---
 layout: default
 ---
-<article class="edition">
-  <h1>ICMNS {{ page.year }}</h1>
-  <p class="meta">
-    {% if page.edition %}{{ page.edition }} edition &middot; {% endif %}{{ page.dates }} &middot; {{ page.location }}
-  </p>
-  {% if page.venue %}<p><strong>Venue:</strong> {{ page.venue }}</p>{% endif %}
-  {{ content }}
-  {% if page.links %}
-  <h2>Links</h2>
-  <ul>
-    {% for link in page.links %}<li><a href="{{ link.url }}">{{ link.title }}</a></li>{% endfor %}
-  </ul>
-  {% endif %}
-</article>
+<div class="wrap">
+  <header class="page-head">
+    <h1>ICMNS {{ page.year }}</h1>
+    <p class="meta">{% if page.edition %}{{ page.edition }} edition &middot; {% endif %}{{ page.dates }} &middot; {{ page.location }}</p>
+    {% if page.venue %}<p class="meta">{{ page.venue }}</p>{% endif %}
+    {% if page.links %}
+    <div class="cta">
+      {% for link in page.links %}<a class="button{% if forloop.first %} button-primary{% endif %}" href="{{ link.url }}">{{ link.title }}</a>{% endfor %}
+    </div>
+    {% endif %}
+  </header>
+  {% include sections.html html=content %}
+</div>

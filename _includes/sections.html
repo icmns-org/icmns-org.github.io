@@ -1,0 +1,19 @@
+{%- comment -%}
+  Lays out a page's content as numbered sections: each "## Heading" in the
+  Markdown becomes a section with the heading on the left and its text on the
+  right. Text before the first heading becomes the introduction.
+  Usage: {% include sections.html html=content %}
+{%- endcomment -%}
+{%- assign parts = include.html | split: '<h2' -%}
+{%- assign intro = parts | first | strip -%}
+{%- if intro != "" %}
+<div class="intro prose">{{ intro }}</div>
+{%- endif %}
+{%- for part in parts offset: 1 %}
+  {%- assign head = part | split: '</h2>' | first -%}
+  {%- assign body = part | remove_first: head | remove_first: '</h2>' %}
+<section class="block">
+  <h2{{ head }}</h2>
+  <div class="prose">{{ body }}</div>
+</section>
+{%- endfor %}

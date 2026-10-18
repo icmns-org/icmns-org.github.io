@@ -72,13 +72,24 @@ The post appears on the [News page](https://icmns.org/news/), in the "Latest new
 
 ### Update the key dates
 
-The **Key dates** table is on the upcoming edition's page, e.g. `_editions/2027.md`. It is plain Markdown:
+The **Key dates** table on an edition page (e.g. `_editions/2027.md`) is filled from the list `key_dates` in the part between the two `---` lines. Replace `TBA` with the date, written as year-month-day:
 
-```markdown
-| Milestone | Date |
-|---|---|
-| Abstract deadline | 1 March 2027 |
+```yaml
+key_dates:
+  - milestone: Abstract submission opens
+    date: 2027-01-15
+    until: 2027-03-01      # optional: when the window closes
+    kind: window
+  - milestone: Abstract deadline
+    date: 2027-03-01
+  - milestone: Conference
+    date: 2027-06-01
+    until: 2027-06-04
+    label: 1–4 June 2027   # optional: text to show instead of the date
+    kind: event
 ```
+
+The **Status** column fills itself in from today's date: *Upcoming*, *Closes soon* (in the last three weeks before a deadline), *Open* / *Under way*, and *Closed* / *Done*. The site rebuilds every night, so the statuses stay current. `kind` is `deadline` if you leave it out.
 
 The home page is deliberately minimal: it shows the logo and the next edition's dates and location, which it reads from the edition file, so there is usually nothing to edit in `index.md`.
 
@@ -99,7 +110,14 @@ links:
 ---
 ```
 
-Below the second `---`, write the page in Markdown: speakers, committees, programme, travel information. Look at `_editions/2024.md` or `_editions/2025.md` for a complete example to copy.
+Below the second `---`, write the page in Markdown: speakers, committees, programme, travel information. Each `## Heading` becomes a numbered section, with the heading on the left and its text on the right. For a list of people, write the name in bold and the affiliation on the next line, indented by two spaces:
+
+```markdown
+- **Alain Goriely**
+  University of Oxford, UK
+```
+
+Write the plenary speakers like this; other lists can stay as plain bullets. Look at `_editions/2024.md` or `_editions/2025.md` for a complete example to copy.
 
 ### Start a new edition (once a year)
 

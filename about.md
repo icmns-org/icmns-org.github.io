@@ -1,9 +1,9 @@
 ---
 title: About
+heading: About ICMNS
+layout: page
 permalink: /about/
 ---
-# About ICMNS
-
 The International Conference on Mathematical Neuroscience (ICMNS) is an interdisciplinary conference series that brings together mathematicians, theoretical and computational neuroscientists, and experimentalists interested in using mathematical concepts and methods to understand the brain.
 
 Many open questions about how brains function, and dysfunction, across spatial and temporal scales call for a wide range of mathematical tools: dynamical systems and bifurcation theory, probability and stochastic processes, statistics, partial differential equations, geometry and topology, information theory, and numerical analysis. ICMNS is a forum for this work, and also for the new mathematics that neuroscience keeps generating.
