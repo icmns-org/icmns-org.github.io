@@ -109,15 +109,12 @@ h1, h2, h3 { font-family: var(--display); font-weight: 400; letter-spacing: -.01
 .prose strong { font-weight: 500; }
 .prose h3 { font-size: 1.2rem; margin: 1.8em 0 .5em; }
 
-/* numbered sections: heading on the left, text on the right */
-main { counter-reset: section; }
-.block { display: grid; gap: .75rem 3rem; border-top: 1px solid var(--rule); padding: 2.25rem 0; counter-increment: section; }
+/* sections: heading on the left, text on the right */
+.block { display: grid; gap: .75rem 3rem; border-top: 1px solid var(--rule); padding: 2.25rem 0; }
 .block h2 { font-size: 1.5rem; line-height: 1.2; margin: 0; }
-.block h2::before { content: counter(section); font-family: var(--text); font-size: .8rem; color: var(--accent-soft); vertical-align: .35em; margin-right: .5em; }
 .block .prose { max-width: none; }
 .block .prose > p, .block .prose > ul, .block .prose > ol { max-width: 66ch; }
 @media (min-width: 52rem) { .block { grid-template-columns: 15rem 1fr; } }
-.unnumbered .block h2::before { content: none; }   /* pages with numbered: false */
 
 /* lists of people (e.g. plenary speakers): name in Plex Sans */
 .block .prose > ul:only-child { list-style: none; padding: 0; }
@@ -216,14 +213,11 @@ figcaption { margin-top: .5rem; font-size: .75rem; color: var(--muted); }
 .network-tip { position: absolute; transform: translate(-50%, calc(-100% - 14px)); padding: .25rem .55rem; border-radius: 4px;
   background: var(--band); color: var(--band-ink); font-size: .78rem; white-space: nowrap; pointer-events: none; opacity: 0; transition: opacity .15s; }
 .network-tip.on { opacity: 1; }
-/* the people, by region and country: three clearly different levels */
-.network-list { padding: 0 0 4rem; }
-.network-region { border-top: 1px solid var(--rule); padding: 1.75rem 0 2.25rem; display: grid; gap: 1rem 3rem; }
-@media (min-width: 52rem) { .network-region { grid-template-columns: 15rem 1fr; } }
-.network-region h2 { font-weight: 300; font-size: 1.7rem; line-height: 1.1; margin: 0; letter-spacing: -.015em; }
-.network-countries { display: grid; gap: 1.75rem 2.5rem; grid-template-columns: repeat(auto-fill, minmax(15rem, 1fr)); }
+/* the people: one column per region, then countries, then people */
+.network-list { display: grid; gap: 2rem 2.5rem; grid-template-columns: repeat(auto-fit, minmax(13rem, 1fr)); border-top: 1px solid var(--rule); padding: 2rem 0 4rem; }
+.network-region h2 { font-weight: 300; font-size: 1.6rem; line-height: 1.1; margin: 0 0 1.25rem; letter-spacing: -.015em; }
+.network-country { margin: 0 0 1.5rem; }
 .network-country h3 { font-family: var(--display); font-weight: 500; font-size: 1.05rem; margin: 0 0 .6rem; padding-bottom: .35rem; border-bottom: 1px solid var(--rule); }
-.network-country h3 span { font-family: var(--text); font-weight: 400; font-size: .75rem; color: var(--muted); margin-left: .4em; }
 .network-country ul { list-style: none; margin: 0; padding: 0; }
 .network-country li { margin: 0 0 .7rem; line-height: 1.3; }
 .network-country .who { display: block; font-family: var(--display); font-size: 1rem; }

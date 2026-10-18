@@ -110,7 +110,7 @@ links:
 ---
 ```
 
-Below the second `---`, write the page in Markdown: speakers, committees, programme, travel information. Each `## Heading` becomes a numbered section, with the heading on the left and its text on the right. For a list of people, write the name in bold and the affiliation on the next line, indented by two spaces:
+Below the second `---`, write the page in Markdown: speakers, committees, programme, travel information. Each `## Heading` becomes a section, with the heading on the left and its text on the right. For a list of people, write the name in bold and the affiliation on the next line, indented by two spaces:
 
 ```markdown
 - **Alain Goriely**
