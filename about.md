@@ -22,9 +22,7 @@ Each edition typically features keynote lectures, invited talks, contributed tal
 
 ## Steering committee
 
-The members of the steering committee, by region and country. See them on the [map of the ICMNS network]({{ '/network/' | relative_url }}).
-
-{% include committee.html %}
+The members of the steering committee, by region and country, are found in the [map of the ICMNS network]({{ '/network/' | relative_url }}).
 
 ## Mailing list
 

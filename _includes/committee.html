@@ -1,6 +1,6 @@
 {%- comment -%}
   The steering committee, by region and country, from _data/people.yml and
-  _data/network.yml. Used on the About page and on /network/.
+  _data/network.yml. Used on /network/.
 {%- endcomment -%}
 {%- assign regions = site.data.network | group_by: "region" -%}
 {%- assign people = site.data.people | default: empty | sort: "surname" %}
