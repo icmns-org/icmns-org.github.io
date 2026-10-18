@@ -13,4 +13,3 @@ permalink: /steering-committee/
 
   {% include committee.html %}
 </div>
-</div>
