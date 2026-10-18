@@ -8,7 +8,7 @@ sitemap: false
 {%- assign dparts = current.dates | split: " " -%}
 {%- assign editions = site.editions | sort: "year" | reverse -%}
 <!doctype html>
-<html lang="en" data-dir="P" data-view="home">
+<html lang="en" data-dir="P" data-view="home" data-palette="nord">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -225,6 +225,18 @@ section.block { display: grid; gap: 1rem 3rem; }
 [data-dir="P"][data-view="home"] .brand span { font-weight: 500; letter-spacing: .04em; }
 
 /* ------------------------------------------------------------------
+   Nord palette (nordtheme.com): Snow Storm paper, Polar Night ink,
+   Frost for accents. Overrides the colours of any direction.
+   ------------------------------------------------------------------ */
+[data-palette="nord"][data-dir] { --paper: #eceff4; --ink: #2e3440; --muted: #4c566a; --rule: #d8dee9; --accent: #5e81ac; --grid: rgba(94, 129, 172, .08); --btn: #88c0d0; --btn-ink: #2e3440; }
+[data-palette="nord"][data-dir][data-theme="dark"] { --paper: #2e3440; --ink: #eceff4; --muted: #a3acbd; --rule: #434c5e; --accent: #88c0d0; --grid: rgba(136, 192, 208, .06); --btn: #88c0d0; --btn-ink: #2e3440; }
+[data-palette="nord"] .masthead { background: transparent; }
+[data-palette="nord"] .cta a { border-radius: 4px !important; border-color: var(--rule) !important; }
+[data-palette="nord"] .cta a.primary { background: var(--btn) !important; color: var(--btn-ink) !important; border-color: var(--btn) !important; }
+[data-palette="nord"] .cta a:not(.primary):hover { border-color: var(--accent) !important; color: var(--accent); }
+[data-palette="nord"] .nav a:hover { color: var(--accent); }
+
+/* ------------------------------------------------------------------
    The switcher (deliberately neutral, not part of any design)
    ------------------------------------------------------------------ */
 .lab { position: fixed; z-index: 10; left: 50%; bottom: 16px; transform: translateX(-50%); display: flex; gap: 4px; padding: 4px; border-radius: 999px;
@@ -358,6 +370,9 @@ body { padding-bottom: 80px; }
   <button data-set-view="home">Home</button>
   <button data-set-view="page">Inner page</button>
   <span class="sep"></span>
+  <button data-set-palette="paper">Paper</button>
+  <button data-set-palette="nord">Nord</button>
+  <span class="sep"></span>
   <button data-open="display">Display font</button>
   <button data-open="text">Text font</button>
   <button data-reset>Reset</button>
@@ -416,6 +431,7 @@ body { padding-bottom: 80px; }
     dir: ['A', 'C', 'P'].indexOf(q.get('dir')) >= 0 ? q.get('dir') : 'P',
     theme: q.get('theme') || (matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light'),
     view: q.get('view') === 'page' ? 'page' : 'home',
+    palette: q.get('palette') === 'paper' ? 'paper' : 'nord',
     display: q.get('display'), text: q.get('text')
   };
 
@@ -435,6 +451,14 @@ body { padding-bottom: 80px; }
     root.dataset.dir = state.dir;
     root.dataset.theme = state.theme;
     root.dataset.view = state.view;
+    root.dataset.palette = state.palette;
+    // the logo hides fibres with its background colour, so each palette needs its own render
+    document.querySelectorAll('img.logo-light, img.logo-dark').forEach(function (img) {
+      if (!img.dataset.orig) img.dataset.orig = img.getAttribute('src');
+      var mode = img.classList.contains('logo-dark') ? 'dark' : 'light';
+      var small = img.closest('.brand') ? '-small' : '';
+      img.src = state.palette === 'nord' ? '{{ "/assets/logo/lab/" | relative_url }}nord-' + mode + small + '_mark.svg' : img.dataset.orig;
+    });
     var d = current('display'), t = current('text');
     load([d, t]);
     // --mono is used by labels in some directions: follow the text font when it is a mono
@@ -443,7 +467,8 @@ body { padding-bottom: 80px; }
     document.querySelectorAll('[data-set-dir]').forEach(function (b) { b.setAttribute('aria-pressed', b.dataset.setDir === state.dir); });
     document.querySelectorAll('[data-set-theme]').forEach(function (b) { b.setAttribute('aria-pressed', b.dataset.setTheme === state.theme); });
     document.querySelectorAll('[data-set-view]').forEach(function (b) { b.setAttribute('aria-pressed', b.dataset.setView === state.view); });
-    var h = 'dir=' + state.dir + '&theme=' + state.theme + '&view=' + state.view;
+    document.querySelectorAll('[data-set-palette]').forEach(function (b) { b.setAttribute('aria-pressed', b.dataset.setPalette === state.palette); });
+    var h = 'dir=' + state.dir + '&theme=' + state.theme + '&view=' + state.view + '&palette=' + state.palette;
     if (state.display) h += '&display=' + encodeURIComponent(state.display);
     if (state.text) h += '&text=' + encodeURIComponent(state.text);
     history.replaceState(null, '', '#' + h);
@@ -480,6 +505,7 @@ body { padding-bottom: 80px; }
   document.querySelectorAll('[data-set-dir]').forEach(function (b) { b.onclick = function () { state.dir = b.dataset.setDir; state.display = null; state.text = null; apply(); }; });
   document.querySelectorAll('[data-set-theme]').forEach(function (b) { b.onclick = function () { state.theme = b.dataset.setTheme; apply(); }; });
   document.querySelectorAll('[data-set-view]').forEach(function (b) { b.onclick = function () { state.view = b.dataset.setView; apply(); }; });
+  document.querySelectorAll('[data-set-palette]').forEach(function (b) { b.onclick = function () { state.palette = b.dataset.setPalette; apply(); }; });
   document.addEventListener('keydown', function (e) {
     if (e.key === 'Escape') picker.classList.remove('open');
     if (e.target.closest && e.target.closest('input, select, textarea')) return;
