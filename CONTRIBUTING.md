@@ -154,7 +154,7 @@ Keep images under about 1 MB (resize photos to about 1600 px wide). Make sure yo
 
 ### Write mathematics
 
-Equations are typeset by LaTeX in IBM Plex Mono Italic and shown as images in the text colour. Add `math: true` to the page's header and write each formula between **double** dollar signs; a formula on a line of its own is set on its own line, aligned to the right:
+Equations are typeset by LaTeX in IBM Plex Mono Italic and shown as images in the text colour. Add `math: true` to the page's header and write each formula between **double** dollar signs; a formula on a line of its own is set on its own line, aligned to the left:
 
 ```markdown
 ---

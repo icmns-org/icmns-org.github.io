@@ -1,6 +1,6 @@
 # Replaces $$...$$ formulas on pages with `math: true` by the SVGs that
 # tools/render_maths.py typeset with LaTeX (IBM Plex Mono Italic) into _maths/.
-# A formula on a line of its own is set as display maths, aligned to the right.
+# A formula on a line of its own is set as display maths, aligned to the left.
 require "digest"
 require "cgi"
 
