@@ -1,0 +1,176 @@
+{%- comment -%}
+  The ICMNS network: nodes from _data/network.yml on a dotted world map (Equal
+  Earth projection, made by tools/make_land_dots.py), linked like neurons:
+  every node connects to its nearest neighbours, and a minimum spanning tree
+  keeps the whole network connected. Spikes travel along the links; when one
+  arrives, the node fires and may send spikes on.
+{%- endcomment -%}
+<figure class="network" aria-label="Map of the ICMNS nodes">
+  <svg class="network-map" viewBox="-541.3 -261.1 1082.7 473.2" role="img" aria-labelledby="network-title">
+    <title id="network-title">ICMNS nodes: {% for n in site.data.network %}{{ n.country }}{% unless forloop.last %}, {% endunless %}{% endfor %}</title>
+    {% include network-land.svg %}
+    <g class="links"></g>
+    <g class="spikes"></g>
+    <g class="nodes"></g>
+  </svg>
+  <figcaption class="network-tip" aria-hidden="true"></figcaption>
+</figure>
+
+<script>
+(function () {
+  var NODES = {{ site.data.network | jsonify }};
+  var PEOPLE = {{ site.data.people | default: empty | jsonify }} || [];
+  var svg = document.querySelector('.network-map'), NS = 'http://www.w3.org/2000/svg';
+  var gLinks = svg.querySelector('.links'), gSpikes = svg.querySelector('.spikes'), gNodes = svg.querySelector('.nodes');
+  var tip = document.querySelector('.network-tip');
+
+  // Equal Earth projection: same constants as tools/make_land_dots.py
+  var A1 = 1.340264, A2 = -0.081106, A3 = 0.000893, A4 = 0.003796, M = Math.sqrt(3) / 2, SCALE = 200;
+  function project(lon, lat) {
+    var lam = lon * Math.PI / 180, t = Math.asin(M * Math.sin(lat * Math.PI / 180));
+    var t2 = t * t, t6 = t2 * t2 * t2;
+    return [SCALE * lam * Math.cos(t) / (M * (A1 + 3 * A2 * t2 + t6 * (7 * A3 + 9 * A4 * t2))),
+            -SCALE * t * (A1 + A2 * t2 + t6 * (A3 + A4 * t2))];
+  }
+  function el(name, attrs, parent) {
+    var e = document.createElementNS(NS, name);
+    for (var k in attrs) e.setAttribute(k, attrs[k]);
+    if (parent) parent.appendChild(e);
+    return e;
+  }
+  // great-circle distance (radians), to choose the links
+  function dist(a, b) {
+    var r = Math.PI / 180, s = Math.sin((b.lat - a.lat) * r / 2), t = Math.sin((b.lon - a.lon) * r / 2);
+    return 2 * Math.asin(Math.sqrt(s * s + Math.cos(a.lat * r) * Math.cos(b.lat * r) * t * t));
+  }
+
+  NODES.forEach(function (n) { n.xy = project(n.lon, n.lat); n.links = []; });
+
+  // links: up to two nearby neighbours of each node, plus a minimum spanning tree
+  // (which makes the long-distance links, and keeps the whole network connected)
+  var pairs = {}, edges = [];
+  function addEdge(i, j) {
+    var k = Math.min(i, j) + '-' + Math.max(i, j);
+    if (i === j || pairs[k]) return;
+    pairs[k] = true; edges.push([i, j]);
+  }
+  NODES.forEach(function (a, i) {
+    NODES.map(function (b, j) { return [dist(a, b), j]; })
+      .filter(function (d) { return d[1] !== i; })
+      .sort(function (p, q) { return p[0] - q[0]; })
+      .slice(0, 2).filter(function (d) { return d[0] < 0.8; })   // neighbours only if under ~5000 km
+      .forEach(function (d) { addEdge(i, d[1]); });
+  });
+  var inTree = [0];                                   // Prim
+  while (inTree.length < NODES.length) {
+    var best = null;
+    inTree.forEach(function (i) {
+      NODES.forEach(function (b, j) {
+        if (inTree.indexOf(j) >= 0) return;
+        var d = dist(NODES[i], b);
+        if (!best || d < best[0]) best = [d, i, j];
+      });
+    });
+    addEdge(best[1], best[2]); inTree.push(best[2]);
+  }
+
+  // draw each link as a gentle arc, lifted in proportion to its length
+  var links = edges.map(function (e) {
+    var a = NODES[e[0]].xy, b = NODES[e[1]].xy;
+    var dx = b[0] - a[0], dy = b[1] - a[1], len = Math.hypot(dx, dy);
+    var lift = Math.min(0.28 * len, 120);
+    var cx = (a[0] + b[0]) / 2 + dy / len * lift * Math.sign(dx || 1),
+        cy = (a[1] + b[1]) / 2 - Math.abs(dx) / len * lift;
+    var path = el('path', { d: 'M' + a + 'Q' + cx + ',' + cy + ' ' + b, class: 'link' }, gLinks);
+    var link = { a: e[0], b: e[1], path: path, len: path.getTotalLength() };
+    NODES[e[0]].links.push(link); NODES[e[1]].links.push(link);
+    return link;
+  });
+
+  // zoom the map to the nodes and their links, with some room around them
+  var box = gLinks.getBBox(), padX = 0.08 * box.width + 30, padTop = 50, padBottom = 40;
+  var fit = [box.x - padX, box.y - padTop, box.width + 2 * padX, box.height + padTop + padBottom];
+  var minAspect = 1.9;                                // not too tall a strip
+  if (fit[2] / fit[3] > 3.2) { var extra = fit[2] / 3.2 - fit[3]; fit[1] -= extra / 2; fit[3] += extra; }
+  if (fit[2] / fit[3] < minAspect) { var w = fit[3] * minAspect; fit[0] -= (w - fit[2]) / 2; fit[2] = w; }
+  svg.setAttribute('viewBox', fit.map(function (v) { return v.toFixed(1); }).join(' '));
+
+  // nodes: a dot, a halo that flashes when the node fires, and a label on hover
+  NODES.forEach(function (n, i) {
+    var g = el('g', { class: 'node region-' + n.region.toLowerCase().replace(/[^a-z]+/g, '-'),
+                      transform: 'translate(' + n.xy + ')', tabindex: 0,
+                      'aria-label': n.country }, gNodes);
+    n.halo = el('circle', { r: 4, class: 'halo' }, g);
+    el('circle', { r: 4, class: 'dot' }, g);
+    function show() {
+      var ppl = PEOPLE.filter(function (p) { return p.country === n.country; }).length;
+      tip.textContent = n.country + (ppl ? ' · ' + ppl + (ppl > 1 ? ' people' : ' person') : '');
+      var vb = svg.viewBox.baseVal;
+      tip.style.left = ((n.xy[0] - vb.x) / vb.width * 100) + '%';
+      tip.style.top = ((n.xy[1] - vb.y) / vb.height * 100) + '%';
+      tip.classList.add('on');
+      fire(i);
+    }
+    g.addEventListener('mouseenter', show); g.addEventListener('focus', show);
+    g.addEventListener('mouseleave', function () { tip.classList.remove('on'); });
+    g.addEventListener('blur', function () { tip.classList.remove('on'); });
+  });
+
+  // spikes: a node fires, sending a spike along one or two of its links;
+  // when a spike arrives, the receiving node may fire in turn
+  var spikes = [], reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  function fire(i, from) {
+    var n = NODES[i];
+    n.halo.classList.remove('fire'); void n.halo.getBBox(); n.halo.classList.add('fire');
+    if (reduced) return;
+    var out = n.links.filter(function (l) { return l !== from; });
+    out.sort(function () { return Math.random() - 0.5; }).slice(0, 1 + (Math.random() < 0.35)).forEach(function (l) {
+      if (spikes.length > 14) return;
+      spikes.push({ link: l, forward: l.a === i, t: 0, speed: 0.11 + 0.04 * Math.random(),
+                    dot: el('path', { class: 'spike' }, gSpikes) });
+    });
+  }
+  // The shape of an action potential, as a function of u in [0, 1] from the
+  // leading edge backwards: a small foot, a sharp upstroke to the overshoot,
+  // repolarisation below rest (the undershoot), and a slow recovery.
+  function ap(u) {
+    if (u < 0.14) return 0.08 * Math.pow(u / 0.14, 2);                       // foot
+    if (u < 0.19) return 0.08 + 0.92 * Math.pow((u - 0.14) / 0.05, 0.7);     // upstroke
+    if (u < 0.27) return 1 - 1.3 * Math.pow((u - 0.19) / 0.08, 1.4);         // fall, past rest
+    return -0.3 * Math.exp(-(u - 0.27) / 0.18) * (1 - (u - 0.27) / 0.73);    // undershoot, recovery
+  }
+  var WIDTH = 40, HEIGHT = 26;        // length along the link, and height of the peak (map units)
+  function waveform(s) {
+    var L = s.link.len, head = s.t * (L + WIDTH), d = '';
+    for (var k = 0; k <= 80; k++) {
+      var u = k / 80, along = head - u * WIDTH;
+      if (along < 0 || along > L) continue;
+      var at = s.forward ? along : L - along;
+      var p = s.link.path.getPointAtLength(at), q = s.link.path.getPointAtLength(Math.min(L, at + 0.5));
+      var tx = q.x - p.x, ty = q.y - p.y, tl = Math.hypot(tx, ty) || 1;
+      var nx = -ty / tl, ny = tx / tl;
+      if (ny > 0) { nx = -nx; ny = -ny; }                 // always draw the peak upwards
+      var v = ap(u) * HEIGHT;
+      d += (d ? 'L' : 'M') + (p.x + nx * v).toFixed(1) + ',' + (p.y + ny * v).toFixed(1);
+    }
+    return d;
+  }
+  var last = performance.now();
+  function frame(now) {
+    var dt = Math.min(now - last, 50) / 1000; last = now;
+    spikes = spikes.filter(function (s) {
+      s.t += dt * s.speed * 300 / (s.link.len + WIDTH) * 1.6;   // roughly constant speed along the map
+      if (s.t >= 1) {
+        s.dot.remove();
+        fire(s.forward ? s.link.b : s.link.a, s.link);
+        return false;
+      }
+      s.dot.setAttribute('d', waveform(s));
+      return true;
+    });
+    if (!spikes.length) fire(Math.floor(Math.random() * NODES.length));   // keep it alive
+    requestAnimationFrame(frame);
+  }
+  if (!reduced) requestAnimationFrame(frame);
+})();
+</script>

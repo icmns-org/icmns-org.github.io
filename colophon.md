@@ -3,7 +3,6 @@ title: Colophon
 heading: Colophon
 # subtitle: How this website and its logo were made.
 layout: page
-numbered: false
 permalink: /colophon/
 math: true
 ---

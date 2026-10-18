@@ -1,0 +1,82 @@
+# People at the ICMNS nodes, shown on /network/ under their country, sorted by
+# surname. No email addresses here: this repository is public.
+- name: Daniele Avitabile
+  surname: Avitabile
+  institution: Vrije Universiteit Amsterdam
+  country: Netherlands
+- name: Andrea Barreiro
+  surname: Barreiro
+  institution: Southern Methodist University
+  country: USA
+- name: Emre Baspinar
+  surname: Baspinar
+  institution: Inria, University of Montpellier
+  country: France
+- name: Hugues Berry
+  surname: Berry
+  institution: Inserm, Lyon
+  country: France
+- name: Áine Byrne
+  surname: Byrne
+  institution: University College Dublin
+  country: Ireland
+- name: Mathieu Desroches
+  surname: Desroches
+  institution: Inria, University of Montpellier
+  country: France
+- name: Antoni Guillamon
+  surname: Guillamon
+  institution: Universitat Politècnica de Catalunya
+  country: Spain
+- name: Chengcheng Huang
+  surname: Huang
+  institution: University of Pittsburgh
+  country: USA
+- name: Gemma Huguet
+  surname: Huguet
+  institution: Universitat Politècnica de Catalunya
+  country: Spain
+- name: Anmar Khadra
+  surname: Khadra
+  institution: McGill University
+  country: Canada
+- name: Songting Li
+  surname: Li
+  institution: Shanghai Jiao Tong University
+  country: China
+- name: James MacLaurin
+  surname: MacLaurin
+  institution: New Jersey Institute of Technology
+  country: USA
+- name: Ernest Montbrió
+  surname: Montbrió
+  institution: Universitat Pompeu Fabra
+  country: Spain
+- name: Alex Roxin
+  surname: Roxin
+  institution: Centre de Recerca Matemàtica   # to confirm
+  country: Spain
+- name: Jonathan Rubin
+  surname: Rubin
+  institution: University of Pittsburgh
+  country: USA
+- name: Tilo Schwalger
+  surname: Schwalger
+  institution: Bernstein Center for Computational Neuroscience Berlin
+  country: Germany
+- name: Massimiliano Tamborrino
+  surname: Tamborrino
+  institution: University of Warwick
+  country: UK
+- name: Kyle Wedgwood
+  surname: Wedgwood
+  institution: University of Exeter
+  country: UK
+- name: Vivien Kirk
+  surname: Kirk
+  institution: University of Auckland
+  country: New Zealand
+- name: Douglas Zhou
+  surname: Zhou
+  institution: Shanghai Jiao Tong University
+  country: China
