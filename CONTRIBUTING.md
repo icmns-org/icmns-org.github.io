@@ -154,9 +154,26 @@ Keep images under about 1 MB (resize photos to about 1600 px wide). Make sure yo
 
 ### Write mathematics
 
-Add `math: true` to the page's header, then use LaTeX:
+Equations are typeset by LaTeX in CM Bright semi-bold and shown as images in the text colour. Add `math: true` to the page's header and write each formula between **double** dollar signs; a formula on a line of its own is centred:
 
 ```markdown
+---
+title: ...
+math: true
+---
+The membrane potential obeys $$\tau \dot V = -V + I(t)$$, and
+
+$$ \frac{\partial u}{\partial t} = -u + \int w(x-y)\, f(u(y,t))\, dy. $$
+```
+
+Then, on a computer with LaTeX installed (MacTeX or TeX Live), run
+
+```sh
+python3 tools/render_maths.py
+```
+
+and commit the new files it creates in `_maths/`. Until you do, the formula appears on the site as red LaTeX code, and the build log says which formula is missing. Editing on github.com alone is therefore not enough for maths: ask a maintainer to run the script if you can't.
+
 ---
 title: ...
 math: true

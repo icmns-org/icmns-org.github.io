@@ -17,10 +17,6 @@
   <link rel="apple-touch-icon" href="{{ '/apple-touch-icon.png' | relative_url }}">
   <meta name="theme-color" content="#eceff4" media="(prefers-color-scheme: light)">
   <meta name="theme-color" content="#2e3440" media="(prefers-color-scheme: dark)">
-  {% if page.math %}
-  <script>window.MathJax = { tex: { inlineMath: [['$', '$'], ['\\(', '\\)']] } };</script>
-  <script defer src="https://cdn.jsdelivr.net/npm/mathjax@3.2.2/es5/tex-chtml.js"></script>
-  {% endif %}
 </head>
 <body class="{% if page.url == '/' %}is-home{% endif %}">
   <header class="masthead">

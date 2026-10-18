@@ -47,4 +47,4 @@ plugins:
   - jekyll-sitemap
   - jekyll-feed
 
-exclude: [README.md, CONTRIBUTING.md, Gemfile, Gemfile.lock, vendor]
+exclude: [README.md, CONTRIBUTING.md, Gemfile, Gemfile.lock, vendor, tools]

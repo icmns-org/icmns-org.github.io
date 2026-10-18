@@ -49,7 +49,7 @@ The brainstem is an **integral sign**, $$\int$$: a Catmull–Rom spline drawn as
 
 ## Typography
 
-The site is set in [IBM Plex](https://www.ibm.com/plex/): **IBM Plex Sans** for titles and headings and **IBM Plex Mono** for text. Plex was designed by Mike Abbink at IBM with the type foundry Bold Monday, and is released under the [SIL Open Font License](https://openfontlicense.org). The equations are typeset with [MathJax](https://www.mathjax.org).
+The site is set in [IBM Plex](https://www.ibm.com/plex/): **IBM Plex Sans** for titles and headings and **IBM Plex Mono** for text. Plex was designed by Mike Abbink at IBM with the type foundry Bold Monday, and is released under the [SIL Open Font License](https://openfontlicense.org). The equations are typeset by LaTeX in **CM Bright** semi-bold, a sans-serif companion to Computer Modern by Walter Schmidt, released under the [LaTeX Project Public License](https://www.latex-project.org/lppl/).
 
 ## Colour
 
