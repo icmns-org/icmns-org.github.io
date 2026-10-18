@@ -1,4 +1,4 @@
-# ICMNS nodes, shown on /network/: one per country. The people at each node are
+# ICMNS nodes, shown on /steering-committee/: one per country. The people at each node are
 # in _data/people.yml (matched by country). lat/lon place the node on the map,
 # roughly where its people are; decimal degrees.
 - country: Netherlands
