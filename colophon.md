@@ -31,7 +31,7 @@ Each short piece of fibre is coloured by its direction, borrowing the idea of th
 
 ## The outline
 
-The outline of the hemisphere is a closed **Catmull–Rom spline** through 22 points traced from a lateral view of a real left hemisphere: frontal lobe, parietal arch, occipital pole, temporal lobe and pole. The program turns it into a **signed distance function**, negative inside and positive outside, which both confines the pattern and draws the two outer contours. The lateral (Sylvian) fissure is cut in with a smooth maximum.
+The outline of the hemisphere, its contour seen from the side, is a smooth closed curve (a Catmull–Rom spline) through 22 points traced from a lateral view of a real left hemisphere. From it the program computes, for every point of the picture, its distance to the contour, counted negative inside the brain and positive outside: a **signed distance function**. The folds are confined to where it is negative, the double contour is drawn where it equals two small negative values, and the lateral (Sylvian) fissure is carved in as a thin groove.
 
 ## The cerebellum: a spiking neuron
 
