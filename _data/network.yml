@@ -1,0 +1,43 @@
+# ICMNS nodes, shown on /network/ (an internal experiment for now).
+# PLACEHOLDERS: these are the cities of past and coming editions, not the real
+# list of nodes. Replace them with the real nodes; lat/lon in decimal degrees.
+- city: Amsterdam
+  country: Netherlands
+  region: Europe
+  lat: 52.37
+  lon: 4.90
+- city: Montpellier
+  country: France
+  region: Europe
+  lat: 43.61
+  lon: 3.88
+- city: Barcelona
+  country: Spain
+  region: Europe
+  lat: 41.39
+  lon: 2.17
+- city: Dublin
+  country: Ireland
+  region: Europe
+  lat: 53.35
+  lon: -6.26
+- city: Copenhagen
+  country: Denmark
+  region: Europe
+  lat: 55.68
+  lon: 12.57
+- city: Montréal
+  country: Canada
+  region: North America
+  lat: 45.50
+  lon: -73.57
+- city: Boulder
+  country: USA
+  region: North America
+  lat: 40.01
+  lon: -105.27
+- city: Shanghai
+  country: China
+  region: Asia
+  lat: 31.23
+  lon: 121.47
