@@ -26,22 +26,22 @@ jobs:
 
       # Maths: typeset any $$...$$ formula that has no SVG in _maths/ yet, so editors
       # can write equations on github.com without installing LaTeX themselves.
-      - uses: teatimeguest/setup-texlive-action@v3
+      - uses: actions/cache@v4
         with:
-          packages: |
-            scheme-infraonly
-            latex-bin
-            xetex
-            amsmath
-            unicode-math
-            lualatex-math
-            fontspec
-            l3packages
-            iftex
-            lm
-            plex
-            firamath
-            dvisvgm
+          path: ~/texlive
+          key: texlive-2026-xetex-plex-firamath-v1
+      - name: Install a minimal TeX Live (cached after the first run)
+        run: |
+          if [ ! -x ~/texlive/bin/x86_64-linux/xelatex ]; then
+            cd "$RUNNER_TEMP"
+            curl -sSL https://mirror.ctan.org/systems/texlive/tlnet/install-tl-unx.tar.gz | tar xz
+            printf '%s\n' "selected_scheme scheme-infraonly" "TEXDIR $HOME/texlive" \
+              "tlpdbopt_install_docfiles 0" "tlpdbopt_install_srcfiles 0" "tlpdbopt_autobackup 0" > profile
+            install-tl-*/install-tl --profile profile --no-interaction > /dev/null
+            ~/texlive/bin/x86_64-linux/tlmgr install latex-bin xetex amsmath unicode-math \
+              lualatex-math fontspec l3packages iftex lm plex firamath dvisvgm > /dev/null
+          fi
+          echo "$HOME/texlive/bin/x86_64-linux" >> "$GITHUB_PATH"
       - name: Typeset maths
         run: python3 tools/render_maths.py
         continue-on-error: true    # if LaTeX fails, still build: missing formulas show in red
