@@ -39,7 +39,7 @@ The cerebellum, a closed spline in proportion to the cerebrum and tucked under t
 
 $$ \dot v = v - \tfrac{1}{3} v^3 - w + I, \qquad \dot w = \varepsilon\,(v + a - b\,w). $$
 
-Here $$v$$ plays the role of the membrane potential and $$w$$ of a slow recovery variable. With $$a = 0.7$$, $$b = 0.8$$, $$I = 0.5$$ and $$\varepsilon = 0.2$$. Visible in the phase plane are a stable **limit cycle** (in bold), **streamlines** of the vector field: starting points on a jittered grid, each traced a fixed length forwards and backwards along the direction of the flow.
+Here $$v$$ plays the role of the membrane potential and $$w$$ of a slow recovery variable. With $$a = 0.7$$, $$b = 0.8$$, $$I = 0.5$$ and $$\varepsilon = 0.2$$, the phase plane shows a stable **limit cycle** (in bold) and **streamlines** of the vector field: starting points on a jittered grid, each traced a fixed length forwards and backwards along the direction of the flow.
 
 ## The brainstem: an integral sign
 
