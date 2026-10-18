@@ -1,65 +1,39 @@
-# ICMNS nodes, shown on /network/. One entry per city; the people at each node
-# are in _data/people.yml (matched by city). lat/lon in decimal degrees.
-# Europe
-- city: Amsterdam
-  country: Netherlands
+# ICMNS nodes, shown on /network/: one per country. The people at each node are
+# in _data/people.yml (matched by country). lat/lon place the node on the map,
+# roughly where its people are; decimal degrees.
+- country: Netherlands
   region: Europe
   lat: 52.37
   lon: 4.90
-- city: Berlin
-  country: Germany
+- country: Germany
   region: Europe
   lat: 52.51
   lon: 13.33
-- city: Montpellier
-  country: France
+- country: France
   region: Europe
-  lat: 43.61
-  lon: 3.88
-- city: Barcelona
-  country: Spain
+  lat: 44.60
+  lon: 4.40
+- country: Spain
   region: Europe
   lat: 41.39
   lon: 2.17
-- city: Exeter
-  country: UK
+- country: UK
   region: Europe
-  lat: 50.73
-  lon: -3.53
-- city: Coventry
-  country: UK
-  region: Europe
-  lat: 52.38
-  lon: -1.56
-- city: Dublin
-  country: Ireland
+  lat: 51.60
+  lon: -2.50
+- country: Ireland
   region: Europe
   lat: 53.35
   lon: -6.26
-# North America
-- city: Montréal
-  country: Canada
+- country: Canada
   region: North America
   lat: 45.50
   lon: -73.57
-- city: Newark
-  country: USA
+- country: USA
   region: North America
-  lat: 40.74
-  lon: -74.18
-- city: Pittsburgh
-  country: USA
-  region: North America
-  lat: 40.44
-  lon: -79.96
-- city: Dallas
-  country: USA
-  region: North America
-  lat: 32.84
-  lon: -96.78
-# Asia
-- city: Shanghai
-  country: China
+  lat: 39.00
+  lon: -84.00
+- country: China
   region: Asia
   lat: 31.23
   lon: 121.47

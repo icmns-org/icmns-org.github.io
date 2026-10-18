@@ -1,66 +1,74 @@
-# People at the ICMNS nodes, shown on /network/ under the node with the same city.
-# No email addresses here: this repository is public.
+# People at the ICMNS nodes, shown on /network/ under their country, sorted by
+# surname. No email addresses here: this repository is public.
 - name: Daniele Avitabile
+  surname: Avitabile
   institution: Vrije Universiteit Amsterdam
-  city: Amsterdam
   country: Netherlands
-- name: Tilo Schwalger
-  institution: Bernstein Center for Computational Neuroscience Berlin
-  city: Berlin
-  country: Germany
-- name: Ernest Montbrió
-  institution: Universitat Pompeu Fabra
-  city: Barcelona
-  country: Spain
-- name: Chengcheng Huang
-  institution: University of Pittsburgh
-  city: Pittsburgh
-  country: USA
 - name: Andrea Barreiro
+  surname: Barreiro
   institution: Southern Methodist University
-  city: Dallas
   country: USA
-- name: Songting Li
-  institution: Shanghai Jiao Tong University
-  city: Shanghai
-  country: China
-- name: James MacLaurin
-  institution: New Jersey Institute of Technology
-  city: Newark
-  country: USA
-- name: Alex Roxin
-  institution: Centre de Recerca Matemàtica   # TO CONFIRM (gmail address)
-  city: Barcelona
-  country: Spain
-- name: Kyle Wedgwood
-  institution: University of Exeter
-  city: Exeter
-  country: UK
-- name: Gemma Huguet
-  institution: Universitat Politècnica de Catalunya
-  city: Barcelona
-  country: Spain
-- name: Mathieu Desroches
+- name: Emre Baspinar
+  surname: Baspinar
   institution: Inria, University of Montpellier
-  city: Montpellier
+  country: France
+- name: Hugues Berry
+  surname: Berry
+  institution: Inserm, Lyon
+  country: France
+- name: Áine Byrne
+  surname: Byrne
+  institution: University College Dublin
+  country: Ireland
+- name: Mathieu Desroches
+  surname: Desroches
+  institution: Inria, University of Montpellier
   country: France
 - name: Antoni Guillamon
+  surname: Guillamon
   institution: Universitat Politècnica de Catalunya
-  city: Barcelona
   country: Spain
-- name: Massimiliano Tamborrino
-  institution: University of Warwick
-  city: Coventry
-  country: UK
-- name: Áine Byrne
-  institution: University College Dublin
-  city: Dublin
-  country: Ireland
-- name: Jonathan Rubin
+- name: Chengcheng Huang
+  surname: Huang
   institution: University of Pittsburgh
-  city: Pittsburgh
   country: USA
+- name: Gemma Huguet
+  surname: Huguet
+  institution: Universitat Politècnica de Catalunya
+  country: Spain
 - name: Anmar Khadra
+  surname: Khadra
   institution: McGill University
-  city: Montréal
   country: Canada
+- name: Songting Li
+  surname: Li
+  institution: Shanghai Jiao Tong University
+  country: China
+- name: James MacLaurin
+  surname: MacLaurin
+  institution: New Jersey Institute of Technology
+  country: USA
+- name: Ernest Montbrió
+  surname: Montbrió
+  institution: Universitat Pompeu Fabra
+  country: Spain
+- name: Alex Roxin
+  surname: Roxin
+  institution: Centre de Recerca Matemàtica   # to confirm
+  country: Spain
+- name: Jonathan Rubin
+  surname: Rubin
+  institution: University of Pittsburgh
+  country: USA
+- name: Tilo Schwalger
+  surname: Schwalger
+  institution: Bernstein Center for Computational Neuroscience Berlin
+  country: Germany
+- name: Massimiliano Tamborrino
+  surname: Tamborrino
+  institution: University of Warwick
+  country: UK
+- name: Kyle Wedgwood
+  surname: Wedgwood
+  institution: University of Exeter
+  country: UK

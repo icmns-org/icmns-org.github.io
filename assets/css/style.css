@@ -219,6 +219,8 @@ figcaption { margin-top: .5rem; font-size: .75rem; color: var(--muted); }
 .network-list h2 { font-size: 1.3rem; margin: 0 0 .75rem; }
 .network-list h3 { font-family: var(--text); font-weight: 400; font-size: .72rem; text-transform: uppercase; letter-spacing: .1em; color: var(--muted); margin: 1.2rem 0 .3rem; }
 .network-list h3:first-of-type { margin-top: 0; }
+.network-list > section > .people { border-left: 0; padding-left: 0; font-size: .9rem; }
+.network-list > section > .people li { padding: .15rem 0; }
 .network-list ul { list-style: none; margin: 0; padding: 0; }
 .network-list li { padding: .2rem 0; }
 .network-list li span { color: var(--muted); font-size: .85em; margin-left: .4em; }

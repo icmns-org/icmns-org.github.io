@@ -7,7 +7,7 @@
 {%- endcomment -%}
 <figure class="network" aria-label="Map of the ICMNS nodes">
   <svg class="network-map" viewBox="-541.3 -261.1 1082.7 473.2" role="img" aria-labelledby="network-title">
-    <title id="network-title">ICMNS nodes: {% for n in site.data.network %}{{ n.city }} ({{ n.country }}){% unless forloop.last %}, {% endunless %}{% endfor %}</title>
+    <title id="network-title">ICMNS nodes: {% for n in site.data.network %}{{ n.country }}{% unless forloop.last %}, {% endunless %}{% endfor %}</title>
     {% include network-land.svg %}
     <g class="links"></g>
     <g class="spikes"></g>
@@ -97,12 +97,12 @@
   NODES.forEach(function (n, i) {
     var g = el('g', { class: 'node region-' + n.region.toLowerCase().replace(/[^a-z]+/g, '-'),
                       transform: 'translate(' + n.xy + ')', tabindex: 0,
-                      'aria-label': n.city + ', ' + n.country }, gNodes);
+                      'aria-label': n.country }, gNodes);
     n.halo = el('circle', { r: 4, class: 'halo' }, g);
     el('circle', { r: 4, class: 'dot' }, g);
     function show() {
-      var ppl = PEOPLE.filter(function (p) { return p.city === n.city; }).length;
-      tip.textContent = n.city + ' · ' + n.country + (ppl ? ' · ' + ppl + (ppl > 1 ? ' people' : ' person') : '');
+      var ppl = PEOPLE.filter(function (p) { return p.country === n.country; }).length;
+      tip.textContent = n.country + (ppl ? ' · ' + ppl + (ppl > 1 ? ' people' : ' person') : '');
       var vb = svg.viewBox.baseVal;
       tip.style.left = ((n.xy[0] - vb.x) / vb.width * 100) + '%';
       tip.style.top = ((n.xy[1] - vb.y) / vb.height * 100) + '%';
