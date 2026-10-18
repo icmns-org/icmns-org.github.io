@@ -10,10 +10,10 @@ permalink: /editions/
   </header>
   <section class="editions-list">
     <table class="data editions">
-      <thead><tr><th>Year</th><th>Edition</th><th>Location</th><th>Dates</th><th><span class="visually-hidden">Open</span></th></tr></thead>
+      <thead><tr><th>Year</th><th>Edition</th><th>Location</th><th>Dates</th></tr></thead>
       <tbody>
         {% for e in editions %}
-        <tr data-href="{{ e.url | relative_url }}"><td class="year"><a href="{{ e.url | relative_url }}">{{ e.year }}</a></td><td>{{ e.edition }}</td><td>{{ e.location }}</td><td>{{ e.dates }}</td><td class="go" aria-hidden="true">→</td></tr>
+        <tr data-href="{{ e.url | relative_url }}"><td class="year"><a href="{{ e.url | relative_url }}">{{ e.year }}</a></td><td>{{ e.edition }}</td><td>{{ e.location }}</td><td>{{ e.dates }}</td></tr>
         {% endfor %}
       </tbody>
     </table>

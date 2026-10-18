@@ -135,15 +135,12 @@ th { font-weight: 400; font-size: .72rem; text-transform: uppercase; letter-spac
 /* past editions: each row links to its edition */
 .editions tbody tr { cursor: pointer; }
 .editions td.year a { color: var(--accent); }
-.editions td.go { width: 2rem; text-align: right; padding-right: .5rem; color: var(--accent); font-family: var(--display); font-size: 1.1rem; transition: transform .15s ease; }
 .editions tbody tr:hover td, .editions tbody tr:focus-within td { background: color-mix(in srgb, var(--accent-soft) 10%, transparent); }
-.editions tbody tr:hover td.go, .editions tbody tr:focus-within td.go { transform: translateX(.25rem); }
 .editions td.year a:focus-visible { outline: none; }
 .editions tbody tr:focus-within { outline: 2px solid var(--accent-soft); outline-offset: -2px; }
 .editions td:first-child { padding-left: .5rem; }
 .editions th:first-child { padding-left: .5rem; }
 .editions-list { margin-bottom: 4rem; }
-.visually-hidden { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
 .table-scroll { overflow-x: auto; }
 
 /* key dates: Aurora status signals */
