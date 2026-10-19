@@ -179,7 +179,7 @@ figcaption { margin-top: .5rem; font-family: var(--mono); font-size: .75rem; col
 
 /* maths: typeset by LaTeX (IBM Plex Mono Italic) as SVG, in the text colour */
 .math svg { display: inline-block; overflow: visible; }
-.math-inline { font-size: 1.12em; white-space: nowrap; }
+.math-inline { font-size: 1.04em; white-space: nowrap; }
 .math-block { text-align: left; padding-left: 1.5em; margin: 1.4rem 0 1.6rem; font-size: 1.3em; overflow-x: auto; overflow-y: hidden; }   /* left, slightly indented, as with LaTeX's fleqn */
 .math-missing { color: var(--red); }
 

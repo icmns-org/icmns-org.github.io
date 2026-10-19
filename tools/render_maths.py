@@ -1,4 +1,4 @@
-"""Typeset the maths on the site with LaTeX as SVG, in IBM Plex Mono Italic.
+"""Typeset the maths on the site with LaTeX as SVG, in IBM Plex Sans Italic.
 
 Pages that have `math: true` in their front matter can contain formulas written
 between double dollar signs:
@@ -30,16 +30,16 @@ ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 OUT = os.path.join(ROOT, "_maths")
 SKIP = {"_site", "vendor", "node_modules", ".git", "_maths", "tools"}
 
-# Letters in IBM Plex Mono Italic and digits in IBM Plex Mono, to match the text;
+# Letters in IBM Plex Sans Italic and digits in IBM Plex Sans, to match the text;
 # Plex has no maths symbols and almost no Greek, so those come from Fira Math,
 # a sans-serif maths font (Plex's own pi and partial sign are kept).
 PREAMBLE = r"""\documentclass[10pt]{article}
 \usepackage{amsmath}
 \usepackage{unicode-math}
 \setmathfont{FiraMath-Regular.otf}
-\setmathfont[range={it/{latin,Latin}}]{IBMPlexMono-Italic.otf}
-\setmathfont[range={up/{num}}]{IBMPlexMono-Regular.otf}
-\setmathfont[range={"03C0,"2202}]{IBMPlexMono-Italic.otf}
+\setmathfont[range={it/{latin,Latin}}]{IBMPlexSans-Italic.otf}
+\setmathfont[range={up/{num}}]{IBMPlexSans-Regular.otf}
+\setmathfont[range={"03C0,"2202}]{IBMPlexSans-Italic.otf}
 \hoffset=-1in \voffset=-1in
 \begin{document}
 """
